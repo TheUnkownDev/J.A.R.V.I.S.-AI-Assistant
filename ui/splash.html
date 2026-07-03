@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>J.A.R.V.I.S. — Initializing</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap');
+
+  :root {
+    --glow: #00f6ff;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    overflow: hidden;
+    font-family: 'Rajdhani', sans-serif;
+  }
+
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-app-region: drag;
+  }
+
+  /* Background grid, same language as main UI */
+  .bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0, 246, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 246, 255, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: -1;
+  }
+
+  .vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(0,10,20,0) 0%, rgba(0,5,10,0.85) 85%);
+    pointer-events: none;
+  }
+
+  .splash {
+    position: relative;
+    width: 480px;
+    height: 480px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* HUD corner brackets */
+  .corner {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border: 2px solid transparent;
+    opacity: 0.6;
+  }
+  .corner.tl { top: 0; left: 0; border-top-color: var(--glow); border-left-color: var(--glow); }
+  .corner.tr { top: 0; right: 0; border-top-color: var(--glow); border-right-color: var(--glow); }
+  .corner.bl { bottom: 0; left: 0; border-bottom-color: var(--glow); border-left-color: var(--glow); }
+  .corner.br { bottom: 0; right: 0; border-bottom-color: var(--glow); border-right-color: var(--glow); }
+
+  /* Arc reactor core */
+  .core-wrap {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 246, 255, 0.35);
+  }
+  .ring.r1 { width: 220px; height: 220px; border-style: dashed; animation: spin 14s linear infinite; }
+  .ring.r2 { width: 190px; height: 190px; border-color: rgba(0,246,255,0.5); animation: spin 9s linear infinite reverse; }
+  .ring.r3 { width: 190px; height: 190px; border-top-color: var(--glow); border-right-color: var(--glow);
+             border-bottom-color: transparent; border-left-color: transparent; animation: spin 2.4s linear infinite; }
+
+  .ticks {
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    animation: spin 30s linear infinite;
+  }
+  .ticks div {
+    position: absolute;
+    width: 2px;
+    height: 8px;
+    background: rgba(0, 246, 255, 0.5);
+    top: 0;
+    left: 50%;
+    transform-origin: 1px 120px;
+  }
+
+  .core {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 3px solid var(--glow);
+    box-shadow: 0 0 25px var(--glow), inset 0 0 25px rgba(0,246,255,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulse 2.6s ease-in-out infinite;
+  }
+
+  .core-inner {
+    width: 42px;
+    height: 42px;
+    background: var(--glow);
+    border-radius: 50%;
+    box-shadow: 0 0 35px var(--glow), 0 0 70px rgba(0,246,255,0.5);
+    animation: flicker 3.2s ease-in-out infinite;
+  }
+
+  /* Title */
+  .title {
+    margin-top: 26px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 1.6rem;
+    letter-spacing: 8px;
+    color: var(--glow);
+    text-shadow: 0 0 10px rgba(0,246,255,0.8), 0 0 25px rgba(0,246,255,0.4);
+  }
+
+  .subtitle {
+    margin-top: 6px;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    color: rgba(160, 216, 239, 0.7);
+    text-transform: uppercase;
+  }
+
+  /* Boot log line */
+  .boot-line {
+    margin-top: 22px;
+    height: 18px;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    color: rgba(0, 246, 255, 0.85);
+  }
+
+  /* Progress bar */
+  .progress-track {
+    margin-top: 14px;
+    width: 260px;
+    height: 4px;
+    background: rgba(0, 246, 255, 0.15);
+    border: 1px solid rgba(0, 246, 255, 0.3);
+    overflow: hidden;
+    border-radius: 2px;
+  }
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, rgba(0,246,255,0.6), var(--glow));
+    box-shadow: 0 0 10px var(--glow);
+    animation: load 3.2s ease-in-out forwards;
+  }
+
+  .progress-pct {
+    margin-top: 8px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    color: rgba(160, 216, 239, 0.6);
+  }
+
+  /* Scanline sweep */
+  .scanline {
+    position: absolute;
+    left: 0; right: 0;
+    height: 2px;
+    background: rgba(0, 246, 255, 0.25);
+    box-shadow: 0 0 10px var(--glow);
+    animation: scan 3s linear infinite;
+  }
+
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 25px var(--glow), inset 0 0 25px rgba(0,246,255,0.6); transform: scale(1); }
+    50% { box-shadow: 0 0 45px var(--glow), inset 0 0 35px rgba(0,246,255,0.8); transform: scale(1.03); }
+  }
+  @keyframes flicker {
+    0%, 100% { opacity: 1; }
+    45% { opacity: 0.85; }
+    50% { opacity: 0.5; }
+    55% { opacity: 0.9; }
+  }
+  @keyframes load {
+    0% { width: 0%; }
+    100% { width: 100%; }
+  }
+  @keyframes scan {
+    0% { top: 0%; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="bg-grid"></div>
+
+  <div class="splash">
+    <div class="scanline"></div>
+    <div class="corner tl"></div>
+    <div class="corner tr"></div>
+    <div class="corner bl"></div>
+    <div class="corner br"></div>
+
+    <div class="core-wrap">
+      <div class="ticks" id="ticks"></div>
+      <div class="ring r1"></div>
+      <div class="ring r2"></div>
+      <div class="ring r3"></div>
+      <div class="core">
+        <div class="core-inner"></div>
+      </div>
+    </div>
+
+    <div class="title">J.A.R.V.I.S.</div>
+    <div class="subtitle">Just A Rather Very Intelligent System</div>
+
+    <div class="boot-line" id="boot-line">Initializing core systems…</div>
+
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+    <div class="progress-pct" id="progress-pct">0%</div>
+  </div>
+
+  <div class="vignette"></div>
+
+  <script>
+    // Build tick marks around the core
+    const ticks = document.getElementById('ticks');
+    for (let i = 0; i < 24; i++) {
+      const t = document.createElement('div');
+      t.style.transform = `rotate(${i * 15}deg)`;
+      ticks.appendChild(t);
+    }
+
+    // Cycle boot messages
+    const messages = [
+      'Initializing core systems…',
+      'Calibrating arc reactor…',
+      'Loading neural pathways…',
+      'Establishing network uplink…',
+      'Verifying credentials…',
+      'Systems online.'
+    ];
+    const bootLine = document.getElementById('boot-line');
+    const fill = document.getElementById('progress-fill');
+    const pct = document.getElementById('progress-pct');
+
+    let i = 0;
+    const totalDuration = 3200; // matches progress-fill animation length
+    const step = totalDuration / messages.length;
+
+    const interval = setInterval(() => {
+      bootLine.style.opacity = 0;
+      setTimeout(() => {
+        bootLine.textContent = messages[i];
+        bootLine.style.opacity = 1;
+      }, 150);
+      i++;
+      if (i >= messages.length) clearInterval(interval);
+    }, step);
+    bootLine.style.transition = 'opacity 0.15s ease';
+
+    // Animate the percentage counter alongside the bar
+    let progress = 0;
+    const progressTimer = setInterval(() => {
+      progress += 100 / (totalDuration / 30);
+      if (progress >= 100) {
+        progress = 100;
+        clearInterval(progressTimer);
+        // Signal to main.js that the splash is done, if wired up via preload/IPC
+        if (window.splashDone) window.splashDone();
+      }
+      pct.textContent = Math.floor(progress) + '%';
+    }, 30);
+  </script>
+</body>
+</html>

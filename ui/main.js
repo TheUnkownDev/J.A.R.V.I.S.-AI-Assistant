@@ -24,6 +24,7 @@ try {
 
 const store = new Store();
 let win;
+let splash;
 let tray;
 let backendProcess = null;
 
@@ -100,6 +101,19 @@ function restartBackend() {
   }
 }
 
+function createSplash() {
+  const splash = new BrowserWindow({
+    width: 480,
+    height: 480,
+    frame: false,
+    transparent: true,
+    alwaysOnTop: true,
+    resizable: false,
+  });
+  splash.loadFile('splash.html');
+  return splash;
+}
+
 function createWindow() {
   win = new BrowserWindow({
     width: 1200,
@@ -109,6 +123,7 @@ function createWindow() {
     alwaysOnTop: false,
     skipTaskbar: false, // Show in taskbar
     title: 'JARVIS', // Set window title
+    show: false, // Keep hidden until splash hands off
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -119,6 +134,15 @@ function createWindow() {
   win.setIgnoreMouseEvents(true, { forward: true });
 
   win.loadFile('index.html');
+
+  // Swap splash for the real window once it's ready to paint
+  win.once('ready-to-show', () => {
+    if (splash && !splash.isDestroyed()) {
+      splash.close();
+      splash = null;
+    }
+    win.show();
+  });
 }
 
 function createTray() {
@@ -523,6 +547,7 @@ function syncStoreToEnv() {
 
 app.whenReady().then(() => {
   syncStoreToEnv();
+  splash = createSplash();
   createWindow();
   createTray();
 
