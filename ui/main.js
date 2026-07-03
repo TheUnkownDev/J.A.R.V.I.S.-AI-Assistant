@@ -101,17 +101,39 @@ function restartBackend() {
   }
 }
 
+let splashShownAt = null;
+const MIN_SPLASH_MS = 3200; // matches the boot animation length in splash.html
+
 function createSplash() {
-  const splash = new BrowserWindow({
+  const splashWin = new BrowserWindow({
     width: 480,
     height: 480,
     frame: false,
     transparent: true,
     alwaysOnTop: true,
     resizable: false,
+    show: false,
+    center: true,
+    skipTaskbar: true,
+    webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true,
+    }
   });
-  splash.loadFile('splash.html');
-  return splash;
+
+  splashWin.loadFile(path.join(__dirname, 'splash.html'));
+
+  // Only reveal once it has actually painted, and log if it fails to load
+  splashWin.once('ready-to-show', () => {
+    splashShownAt = Date.now();
+    splashWin.show();
+  });
+
+  splashWin.webContents.on('did-fail-load', (event, code, desc) => {
+    console.error('[!] Splash failed to load:', code, desc);
+  });
+
+  return splashWin;
 }
 
 function createWindow() {
@@ -135,13 +157,19 @@ function createWindow() {
 
   win.loadFile('index.html');
 
-  // Swap splash for the real window once it's ready to paint
+  // Swap splash for the real window once it's ready to paint,
+  // but never cut the splash animation short.
   win.once('ready-to-show', () => {
-    if (splash && !splash.isDestroyed()) {
-      splash.close();
-      splash = null;
-    }
-    win.show();
+    const elapsed = splashShownAt ? Date.now() - splashShownAt : 0;
+    const remaining = Math.max(MIN_SPLASH_MS - elapsed, 0);
+
+    setTimeout(() => {
+      if (splash && !splash.isDestroyed()) {
+        splash.close();
+        splash = null;
+      }
+      win.show();
+    }, remaining);
   });
 }
 
