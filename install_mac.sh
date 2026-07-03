@@ -217,7 +217,7 @@ fi
 echo ""
 
 echo "==================================================="
-echo "  LOCAL MODEL SETUP (llama.cpp)"
+echo "  LOCAL MODEL SETUP (llama.cpp) [EXPERIMENTAL]"
 echo "==================================================="
 echo ""
 echo "JARVIS can run AI models locally on your machine for"
@@ -227,6 +227,10 @@ echo "[WARNING] Local models require significant system resources:"
 echo "  - Recommended: 16GB+ RAM for good performance"
 echo "  - Minimum: 8GB RAM (may experience slower responses)"
 echo "  - GPU acceleration highly recommended for best performance"
+echo ""
+echo "[EXPERIMENTAL] llama.cpp is not stable and may have issues."
+echo "  This feature is experimental and under active development."
+echo "  Use at your own risk. Cloud APIs (Groq/Gemini) are recommended."
 echo ""
 read -p "Install llama.cpp for local model support? (y/N): " install_llama
 if [[ "$install_llama" =~ ^[Yy]$ ]]; then

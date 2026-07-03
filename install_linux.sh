@@ -299,12 +299,117 @@ fi
 echo ""
 
 echo "==================================================="
+echo "  LOCAL MODEL SETUP (llama.cpp) [EXPERIMENTAL]"
+echo "==================================================="
+echo ""
+echo "JARVIS can run AI models locally on your machine for"
+echo "complete privacy and offline capability."
+echo ""
+echo "[WARNING] Local models require significant system resources:"
+echo "  - Recommended: 16GB+ RAM for good performance"
+echo "  - Minimum: 8GB RAM (may experience slower responses)"
+echo "  - GPU acceleration highly recommended for best performance"
+echo ""
+echo "[EXPERIMENTAL] llama.cpp is not stable and may have issues."
+echo "  This feature is experimental and under active development."
+echo "  Use at your own risk. Cloud APIs (Groq/Gemini) are recommended."
+echo ""
+read -p "Install llama.cpp for local model support? (y/N): " install_llama
+if [[ "$install_llama" =~ ^[Yy]$ ]]; then
+    echo ""
+    echo "[*] Installing llama.cpp..."
+    mkdir -p llama.cpp
+    
+    # Detect architecture
+    arch=$(uname -m)
+    if [ "$arch" = "x86_64" ]; then
+        llama_url="https://github.com/ggerganov/llama.cpp/releases/download/b3593/llama-b3593-bin-linux-avx2-x64.zip"
+    else
+        llama_url="https://github.com/ggerganov/llama.cpp/releases/download/b3593/llama-b3593-bin-linux-avx2-x64.zip"
+    fi
+    
+    echo "Downloading llama.cpp for Linux..."
+    if command_exists curl; then
+        curl -L -o "llama_cpp.zip" "$llama_url" || {
+            echo "[ERROR] Failed to download llama.cpp."
+            exit 1
+        }
+    elif command_exists wget; then
+        wget -O "llama_cpp.zip" "$llama_url" || {
+            echo "[ERROR] Failed to download llama.cpp."
+            exit 1
+        }
+    else
+        echo "[ERROR] Neither curl nor wget is installed."
+        exit 1
+    fi
+    
+    echo "Extracting llama.cpp..."
+    unzip -q "llama_cpp.zip" -d llama.cpp || {
+        echo "[ERROR] Failed to extract llama.cpp."
+        exit 1
+    }
+    
+    echo "Cleaning up..."
+    rm "llama_cpp.zip"
+    
+    # Find and move executables to root
+    find llama.cpp -type f -name "llama-cli" -exec mv {} llama.cpp/ \; 2>/dev/null
+    
+    echo "[OK] llama.cpp installed successfully."
+    
+    echo ""
+    echo "Creating models directory..."
+    mkdir -p models
+    echo "[OK] Models directory created."
+    
+    echo ""
+    echo "[*] Step 7: Downloading recommended model..."
+    echo ""
+    echo "Based on typical system specifications, we recommend:"
+    echo "  Phi-3-mini-4k-instruct-Q4_K_M (~1.2GB)"
+    echo "  This is a lightweight model that balances performance and quality."
+    echo ""
+    read -p "Download recommended model now? (y/N): " download_model
+    if [[ "$download_model" =~ ^[Yy]$ ]]; then
+        echo "Downloading Phi-3-mini-4k-instruct-Q4_K_M..."
+        echo "This may take several minutes depending on your connection..."
+        if command_exists curl; then
+            curl -L -o "models/Phi-3-mini-4k-instruct-Q4_K_M.gguf" "https://huggingface.co/bartowski/Phi-3-mini-4k-instruct-GGUF/resolve/main/Phi-3-mini-4k-instruct-Q4_K_M.gguf" || {
+                echo "[ERROR] Failed to download model."
+                echo "You can download models later from the settings menu."
+            }
+        elif command_exists wget; then
+            wget -O "models/Phi-3-mini-4k-instruct-Q4_K_M.gguf" "https://huggingface.co/bartowski/Phi-3-mini-4k-instruct-GGUF/resolve/main/Phi-3-mini-4k-instruct-Q4_K_M.gguf" || {
+                echo "[ERROR] Failed to download model."
+                echo "You can download models later from the settings menu."
+            }
+        fi
+        
+        if [ -f "models/Phi-3-mini-4k-instruct-Q4_K_M.gguf" ]; then
+            echo "[OK] Model downloaded successfully."
+            echo "Updating .env configuration..."
+            sed -i 's/LLAMA_CPP_ENABLED="false"/LLAMA_CPP_ENABLED="true"/' .env
+            sed -i 's|LLAMA_CPP_MODEL_PATH="models/your-model.gguf"|LLAMA_CPP_MODEL_PATH="models/Phi-3-mini-4k-instruct-Q4_K_M.gguf"|' .env
+            echo "[OK] Configuration updated. Local model enabled."
+        fi
+    else
+        echo "You can download models later from the settings menu."
+    fi
+else
+    echo "[*] Skipping llama.cpp installation."
+    echo "You can install it later by running this installer again."
+fi
+echo ""
+
+echo "==================================================="
 echo "  INSTALLATION COMPLETE!"
 echo "==================================================="
 echo ""
 echo "You can launch the system using:"
 echo "./launch_jarvis.sh"
 echo ""
-echo "Once the UI opens, you can paste and configure your API keys"
-echo "directly from the settings menu."
+echo "Once the UI opens, you can:"
+echo "  - Configure API keys from the settings menu (for cloud AI)"
+echo "  - Manage local models from the Models settings (for offline AI)"
 echo ""
