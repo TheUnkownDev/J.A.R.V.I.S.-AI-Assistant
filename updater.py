@@ -28,8 +28,8 @@ class VERNONUpdater:
     
     def __init__(self):
         self.base_dir = os.path.dirname(os.path.abspath(__file__))
-        self.github_repo_url = "https://github.com/Aetex/V.E.R.N.O.N.-AI-Assistant.git"
-        self.repo_dir = os.path.join(self.base_dir, "Github", "V.E.R.N.O.N.-AI-Assistant")
+        self.github_repo_url = "https://github.com/Aetex/V.E.R.N.O.N.-AI.git"
+        self.repo_dir = os.path.join(self.base_dir, "Github", "V.E.R.N.O.N.-AI")
         
         # Initialize modules
         self.version_checker = VersionChecker(self.base_dir, self.repo_dir)
