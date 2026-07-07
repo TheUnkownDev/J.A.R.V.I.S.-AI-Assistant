@@ -3,6 +3,9 @@
 > [!IMPORTANT]
 > **Original project by AeteX.** Forks and modifications are welcome. Please keep original credit when sharing or modifying this project.
 
+> [!WARNING]
+> **macOS support is untested.** I don't personally own a Mac, so while the macOS install path *should* work, I haven't been able to verify it myself on real hardware. If you're on macOS and want to help — or want to contribute in any other way — see [Contributing](#5-contributing-macos-help-especially-wanted) below. Everyone who helps gets listed as a contributor, Mac or not.
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![Electron](https://img.shields.io/badge/platform-Electron-blueviolet.svg)](https://www.electronjs.org/)
@@ -105,6 +108,8 @@ If you want to edit the code, tweak the UI, or run the system natively across Wi
 <details>
 <summary><b>macOS Setup (Click to expand)</b></summary>
 
+> ⚠️ **Untested on macOS.** These steps are written to the best of my knowledge, but I don't own a Mac to confirm them myself. If something breaks, please [open an issue](https://github.com/aetex/J.A.R.V.I.S.-AI-Assistant/issues) — or better yet, help fix it (or contribute in any other way)! See [Contributing](#5-contributing-macos-help-especially-wanted).
+
 1. **Option A: Clone with Git** (Recommended):
    ```bash
    git clone https://github.com/aetex/J.A.R.V.I.S.-AI-Assistant.git
@@ -165,10 +170,47 @@ If you want to edit the code, tweak the UI, or run the system natively across Wi
 - **Backend Error**: Verify that you have configured your API keys inside the HUD's settings panel.
 - **UI not loading**: Ensure you ran `npm install` inside the `ui` folder.
 - **Local model performance**: For better performance with local models, ensure you have sufficient RAM (16GB+ recommended) and consider using a system with GPU acceleration.
+- **macOS-specific issues**: Since macOS is untested on my end, please report any bugs via [GitHub Issues](https://github.com/aetex/J.A.R.V.I.S.-AI-Assistant/issues) — see the section below if you'd like to help fix them.
 
 ---
 
-## 5. Changelog
+## 5. Contributing (macOS Help Especially Wanted)
+
+> *"Sometimes the best solutions are the simplest ones." — Tony Stark*
+
+I built and tested JARVIS entirely on Windows and Linux. **I don't own a Mac**, so the macOS install path (`install_mac.sh` / `launch_jarvis.sh`) is untested on real hardware — it's written based on how it *should* behave, but there's a good chance a few macOS-specific bugs (permissions, mic access, Electron packaging quirks, Apple Silicon vs Intel differences, etc.) are hiding in there. That's the biggest gap right now, so Mac testers/fixers are especially appreciated.
+
+**But this isn't only about macOS.** Whether or not you have a Mac, there are plenty of ways to pitch in:
+
+- 🍎 **Test or fix macOS.** Run the install script and report what breaks, or fix a Mac-specific bug — the highest-priority gap right now.
+- 🐛 **Fix a bug on any platform.** Windows and Linux bugs, edge cases, crashes — all welcome.
+- ✨ **Add a feature.** New wake-word tweaks, UI polish, a local model you got working well — if it's useful, it's welcome.
+- 📝 **Improve the docs.** Clearer install steps, typo fixes, better troubleshooting entries — small stuff still counts.
+- 🎨 **Design/UI contributions.** Tweaks to the HUD, new themes, accessibility improvements.
+- 🔊 **Mic/audio work.** Especially valuable on macOS, where audio permissions work differently than Windows/Linux.
+- 📦 **Packaging/build help.** Getting installers signed, notarized, or just more reliable across platforms.
+
+Really — if you fix, test, document, or improve *anything* in this repo, you're a contributor.
+
+**What you get in return:**
+
+This is a free, MIT-licensed passion project, so I can't pay contributors — but I *can* give you real, permanent credit:
+
+- ✅ Your name/handle added to the **Contributors** table below, no matter how big or small the contribution
+- ✅ macOS contributors specifically get called out as **macOS maintainer**, both here and inside the app's in-HUD "About" credits
+- ✅ Your fix, your name, forever in the commit history and changelog of an active open-source project
+
+If that sounds fun, fork the repo, open a PR (macOS fixes, other bugs, docs, features — anything genuinely helpful), and tag me — I'll review, merge, and add you below.
+
+### Contributors
+
+| Contributor | Contribution | Platform |
+|---|---|---|
+| — | *waiting for our first contributor* | — |
+
+---
+
+## 6. Changelog
 
 ### v0.5 — Latest (2026-06-30)
 **🚀 Major Update: Local Model Support**
