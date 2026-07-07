@@ -29,7 +29,13 @@ class VERNONUpdater:
     def __init__(self):
         self.base_dir = os.path.dirname(os.path.abspath(__file__))
         self.github_repo_url = "https://github.com/Aetex/V.E.R.N.O.N.-AI.git"
-        self.repo_dir = os.path.join(self.base_dir, "Github", "V.E.R.N.O.N.-AI")
+        
+        # If the current directory is already a git repository, use it.
+        # Otherwise, check/clone in Github/V.E.R.N.O.N.-AI
+        if os.path.isdir(os.path.join(self.base_dir, ".git")):
+            self.repo_dir = self.base_dir
+        else:
+            self.repo_dir = os.path.join(self.base_dir, "Github", "V.E.R.N.O.N.-AI")
         
         # Initialize modules
         self.version_checker = VersionChecker(self.base_dir, self.repo_dir)
@@ -196,6 +202,12 @@ class VERNONUpdater:
         """
         print("[*] Synchronizing files...")
         
+        # If repo_dir is the same as base_dir, the git pull has updated the files in-place
+        # so there is no need to copy them (which would fail with same file error)
+        if os.path.abspath(self.repo_dir) == os.path.abspath(self.base_dir):
+            print("[OK] Files already in repository root, skipping synchronization.")
+            return True, "Files already in repository root, skipping synchronization"
+            
         try:
             # Recursive copy helper
             for root, dirs, files in os.walk(self.repo_dir):
@@ -465,8 +477,11 @@ if __name__ == "__main__":
     
     if args.status:
         status = updater.get_update_status()
+        current_ver = status.get('current_version')
+        if not current_ver or current_ver == 'None':
+            current_ver = updater.version_checker.get_current_version()
         print("\n=== V.E.R.N.O.N. Update Status ===")
-        print(f"Current Version: {status.get('current_version', 'Unknown')}")
+        print(f"Current Version: {current_ver or 'Unknown'}")
         print(f"Last Update: {status.get('last_update', 'Never')}")
         print(f"Total Updates: {status.get('total_updates', 0)}")
         print(f"Successful Updates: {status.get('successful_updates', 0)}")
