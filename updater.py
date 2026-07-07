@@ -29,13 +29,7 @@ class VERNONUpdater:
     def __init__(self):
         self.base_dir = os.path.dirname(os.path.abspath(__file__))
         self.github_repo_url = "https://github.com/Aetex/V.E.R.N.O.N.-AI.git"
-        
-        # If the current directory is already a git repository, use it.
-        # Otherwise, check/clone in Github/V.E.R.N.O.N.-AI
-        if os.path.isdir(os.path.join(self.base_dir, ".git")):
-            self.repo_dir = self.base_dir
-        else:
-            self.repo_dir = os.path.join(self.base_dir, "Github", "V.E.R.N.O.N.-AI")
+        self.repo_dir = os.path.join(self.base_dir, "Github", "V.E.R.N.O.N.-AI")
         
         # Initialize modules
         self.version_checker = VersionChecker(self.base_dir, self.repo_dir)
@@ -202,12 +196,6 @@ class VERNONUpdater:
         """
         print("[*] Synchronizing files...")
         
-        # If repo_dir is the same as base_dir, the git pull has updated the files in-place
-        # so there is no need to copy them (which would fail with same file error)
-        if os.path.abspath(self.repo_dir) == os.path.abspath(self.base_dir):
-            print("[OK] Files already in repository root, skipping synchronization.")
-            return True, "Files already in repository root, skipping synchronization"
-            
         try:
             # Recursive copy helper
             for root, dirs, files in os.walk(self.repo_dir):

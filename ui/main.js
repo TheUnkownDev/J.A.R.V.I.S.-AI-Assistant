@@ -320,31 +320,174 @@ function runCommandPromise(cmd, cwd) {
 }
 
 // Check if update is available
-async function isUpdateAvailable() {
-  let repoPath = path.join(__dirname, '..');
-  if (!fs.existsSync(path.join(repoPath, '.git'))) {
-    repoPath = path.join(repoPath, 'Github', 'V.E.R.N.O.N.-AI');
-    if (!fs.existsSync(repoPath)) {
-      console.log("[*] GitHub repository not found at:", repoPath);
-      return false;
+// Helper to get local version from package.json
+function getLocalVersion() {
+  try {
+    const pPath = path.join(__dirname, 'package.json');
+    if (fs.existsSync(pPath)) {
+      const data = JSON.parse(fs.readFileSync(pPath, 'utf8'));
+      return data.version;
     }
+  } catch (e) {
+    console.error("Failed to read local package.json:", e);
   }
+  return null;
+}
 
-  console.log("[*] Fetching latest updates from GitHub...");
+// Helper to check version difference
+function isNewerVersion(local, latest) {
+  const parts1 = local.split('.').map(Number);
+  const parts2 = latest.split('.').map(Number);
+  for (let i = 0; i < Math.max(parts1.length, parts2.length); i++) {
+    const p1 = parts1[i] || 0;
+    const p2 = parts2[i] || 0;
+    if (p1 < p2) return true;
+    if (p1 > p2) return false;
+  }
+  return false;
+}
+
+// Helper to get the latest version from the GitHub API
+function getLatestVersionFromApi() {
+  return new Promise((resolve) => {
+    const https = require('https');
+    const options = {
+      hostname: 'api.github.com',
+      path: '/repos/Aetex/V.E.R.N.O.N.-AI/contents/ui/package.json',
+      headers: { 'User-Agent': 'VERNON-AI-App' }
+    };
+
+    https.get(options, (res) => {
+      if (res.statusCode !== 200) {
+        resolve(null);
+        return;
+      }
+
+      let body = '';
+      res.on('data', (chunk) => body += chunk);
+      res.on('end', () => {
+        try {
+          const data = JSON.parse(body);
+          const content = Buffer.from(data.content, 'base64').toString('utf8');
+          const pkg = JSON.parse(content);
+          resolve(pkg.version);
+        } catch (e) {
+          resolve(null);
+        }
+      });
+    }).on('error', () => {
+      resolve(null);
+    });
+  });
+}
+
+// Helper to get local commit hash
+async function getLocalCommitHash(repoPath) {
+  const res = await runCommandPromise('git rev-parse HEAD', repoPath);
+  return res.success ? res.stdout.trim() : null;
+}
+
+// Helper to get latest commit from GitHub API
+function getLatestCommitFromApi() {
+  return new Promise((resolve) => {
+    const https = require('https');
+    const options = {
+      hostname: 'api.github.com',
+      path: '/repos/Aetex/V.E.R.N.O.N.-AI/commits/main',
+      headers: { 'User-Agent': 'VERNON-AI-App' }
+    };
+
+    https.get(options, (res) => {
+      if (res.statusCode !== 200) {
+        resolve(null);
+        return;
+      }
+
+      let body = '';
+      res.on('data', (chunk) => body += chunk);
+      res.on('end', () => {
+        try {
+          const data = JSON.parse(body);
+          resolve(data.sha);
+        } catch (e) {
+          resolve(null);
+        }
+      });
+    }).on('error', () => {
+      resolve(null);
+    });
+  });
+}
+
+// Fallback check using git fetch and rev-list
+async function fallbackGitCheck(repoPath) {
+  console.log("[*] Fetching updates via git fetch...");
   const fetchRes = await runCommandPromise('git fetch', repoPath);
-  if (!fetchRes.success) {
-    console.log("[WARN] Failed to fetch updates (offline or git error). Skipping update check.");
-    return false;
-  }
-
+  if (!fetchRes.success) return false;
+  
   const diffRes = await runCommandPromise('git rev-list --count HEAD..origin/main', repoPath);
-  if (!diffRes.success) {
-    console.error("Failed to compare HEAD with origin/main.");
-    return false;
-  }
-
+  if (!diffRes.success) return false;
+  
   const count = parseInt(diffRes.stdout.trim(), 10);
   return count > 0;
+}
+
+// Helper to check git updates in a given directory
+async function checkGitUpdates(repoPath) {
+  console.log("[*] Checking latest commit hash from GitHub API...");
+  const localCommit = await getLocalCommitHash(repoPath);
+  if (!localCommit) {
+    console.log("[WARN] Failed to get local commit hash. Falling back to git fetch check.");
+    return await fallbackGitCheck(repoPath);
+  }
+
+  const remoteCommit = await getLatestCommitFromApi();
+  if (!remoteCommit) {
+    console.log("[WARN] Failed to fetch remote commit from API. Falling back to git fetch check.");
+    return await fallbackGitCheck(repoPath);
+  }
+
+  console.log(`[*] Local commit: ${localCommit.slice(0, 7)}, GitHub commit: ${remoteCommit.slice(0, 7)}`);
+  return localCommit !== remoteCommit;
+}
+
+// Check if update is available
+async function isUpdateAvailable() {
+  const rootPath = path.join(__dirname, '..');
+  
+  // 1. If the root folder contains a .git directory (e.g. developer workspace),
+  // we check git updates using the root folder to detect changes.
+  if (fs.existsSync(path.join(rootPath, '.git'))) {
+    console.log("[*] Root directory is a Git repository. Detecting updates...");
+    return await checkGitUpdates(rootPath);
+  }
+
+  // 2. Otherwise, check if the nested Github/V.E.R.N.O.N.-AI directory exists and contains .git.
+  const nestedRepoPath = path.join(rootPath, 'Github', 'V.E.R.N.O.N.-AI');
+  if (fs.existsSync(path.join(nestedRepoPath, '.git'))) {
+    console.log("[*] Nested Github folder is a Git repository. Detecting updates...");
+    return await checkGitUpdates(nestedRepoPath);
+  }
+
+  // 3. Fallback: If no local git repository exists (e.g., zip download or first run),
+  // fetch the latest version from the GitHub API and compare it with the local version.
+  console.log("[*] Local git repository not found. Querying GitHub API for version info...");
+  try {
+    const localVersion = getLocalVersion();
+    if (!localVersion) return false;
+
+    const latestVersion = await getLatestVersionFromApi();
+    if (!latestVersion) return false;
+
+    console.log(`[*] Local version: ${localVersion}, GitHub version: ${latestVersion}`);
+    if (isNewerVersion(localVersion, latestVersion)) {
+      console.log("[*] A newer version is available on GitHub.");
+      return true;
+    }
+  } catch (err) {
+    console.error("[WARN] Failed to check updates via GitHub API:", err);
+  }
+  return false;
 }
 
 // Run updater.py using venv python
