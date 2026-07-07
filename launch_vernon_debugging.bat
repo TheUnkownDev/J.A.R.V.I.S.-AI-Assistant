@@ -1,12 +1,12 @@
 @echo off
-title J.A.R.V.I.S. Debugging Launcher
+title V.E.R.N.O.N. Debugging Launcher
 echo ===================================================
-echo   INITIALIZING J.A.R.V.I.S. DEBUG MODE
+echo   INITIALIZING V.E.R.N.O.N. DEBUG MODE
 echo ===================================================
 
 :: Start the Python Backend in a VISIBLE window
 echo [*] Powering up neural processors (Visible Mode)...
-start "JARVIS Backend" cmd /k ".\venv\Scripts\activate && python backend.py"
+start "VERNON Backend" cmd /k ".\venv\Scripts\activate && python backend.py"
 
 :: Wait for the backend to initialize
 echo [*] Waiting for system handshake...

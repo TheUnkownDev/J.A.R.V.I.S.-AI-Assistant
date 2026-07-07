@@ -4,7 +4,7 @@ import os
 import sys
 
 def launch():
-    print("--- J.A.R.V.I.S. Launcher ---")
+    print("--- V.E.R.N.O.N. Launcher ---")
     
     # 1. Start the backend
     print("[*] Starting Backend...")
@@ -25,7 +25,7 @@ def launch():
         # Run npm start. Using shell=True for npm on Windows
         subprocess.run("npm start", shell=True, cwd=ui_dir)
     except KeyboardInterrupt:
-        print("\n[*] Shutting down JARVIS...")
+        print("\n[*] Shutting down VERNON...")
     finally:
         # Cleanup backend if GUI is closed
         backend_proc.terminate()

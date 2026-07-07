@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-class JARVISSTT:
+class VERNONSTT:
     def __init__(self):
         self.groq_key = os.getenv("GROQ_API_KEY")
         if self.groq_key and self.groq_key != "your_groq_api_key_here":
@@ -50,5 +50,5 @@ class JARVISSTT:
             return ""
 
 if __name__ == "__main__":
-    stt = JARVISSTT()
+    stt = VERNONSTT()
     # print(stt.listen_and_transcribe())

@@ -1,9 +1,9 @@
 import asyncio
-from core.speech import JARVISSpeech
+from core.speech import VERNONSpeech
 
 async def main():
-    print("Testing JARVISSpeech with am_adam...")
-    speech = JARVISSpeech()
+    print("Testing VERNONSpeech with am_adam...")
+    speech = VERNONSpeech()
     speech.voice = "am_adam"
     print("Speaking...")
     await speech.speak("Hello, sir. The systems are functioning normally.")

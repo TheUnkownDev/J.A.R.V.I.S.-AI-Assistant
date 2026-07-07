@@ -11,7 +11,7 @@ except ImportError as _kokoro_err:
     print(f"[WARN] Kokoro TTS not available ({_kokoro_err}). Speech output will be disabled.")
     KOKORO_AVAILABLE = False
 
-class JARVISSpeech:
+class VERNONSpeech:
     def __init__(self):
         pygame.mixer.init()
         # Locate the voice directory in the project root
@@ -92,7 +92,7 @@ class JARVISSpeech:
 
 def speak_sync(text: str):
     """Wrapper to run async speak in a synchronous way if needed."""
-    speech = JARVISSpeech()
+    speech = VERNONSpeech()
     asyncio.run(speech.speak(text))
 
 if __name__ == "__main__":

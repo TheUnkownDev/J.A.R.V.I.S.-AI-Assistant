@@ -1,7 +1,7 @@
 @echo off
-title J.A.R.V.I.S. Installer
+title V.E.R.N.O.N. Installer
 echo ===================================================
-echo   J.A.R.V.I.S. AUTOMATED INSTALLATION (WINDOWS)
+echo   V.E.R.N.O.N. AUTOMATED INSTALLATION (WINDOWS)
 echo ===================================================
 echo.
 
@@ -12,7 +12,7 @@ cd /d "%BASE_DIR%"
 goto after_jokes
 
 :joke_python
-echo         JARVIS: I appear to be missing a brain, sir. Python would be a fine place to start.
+echo         VERNON: I appear to be missing a brain, sir. Python would be a fine place to start.
 exit /b 0
 
 :joke_node
@@ -24,14 +24,14 @@ echo         Tony Stark: Dependency chaos. Classic. I usually fix this with a su
 exit /b 0
 
 :joke_ui
-echo         JARVIS: The HUD refuses to assemble. Even Stark tech needs its npm bolts tightened.
+echo         VERNON: The HUD refuses to assemble. Even Stark tech needs its npm bolts tightened.
 exit /b 0
 
 :run_spinner
 set "SPIN_MSG=%~1"
 set "SPIN_CMD=%~2"
-set "SPIN_LOG=%TEMP%\jarvis-install-%RANDOM%.log"
-powershell -NoProfile -ExecutionPolicy Bypass -Command "$msg=$env:SPIN_MSG; $cmd=$env:SPIN_CMD + ' > \"' + $env:SPIN_LOG + '\" 2>&1'; $log=$env:SPIN_LOG; $p=Start-Process -FilePath 'cmd.exe' -ArgumentList '/d','/s','/c',$cmd -WindowStyle Hidden -PassThru; $spin='|','/','-','\'; $i=0; while(-not $p.HasExited){ Write-Host -NoNewline (\"`r[*] {0} {1}\" -f $msg,$spin[$i%%4]); Start-Sleep -Milliseconds 120; $i++ }; $p.WaitForExit(); Write-Host -NoNewline \"`r\"; if($p.ExitCode -ne 0){ $saved=Join-Path (Get-Location) 'jarvis-install-log.log'; if(Test-Path $log){ Move-Item -Force $log $saved }; Write-Host \"[ERROR] $msg failed.\"; if((Test-Path $saved) -and (Select-String -Path $saved -Pattern 'Failed to resolve|NameResolutionError|Temporary failure|Could not resolve|unreachable network|WinError 10051' -Quiet)){ Write-Host '        Network connection failed. Check your internet/DNS, then re-run this installer.' } else { Write-Host \"        Full technical details were saved to $saved\" }; exit $p.ExitCode }; if(Test-Path $log){ Remove-Item $log -ErrorAction SilentlyContinue }; Write-Host \"[OK] $msg complete.\"; exit 0"
+set "SPIN_LOG=%TEMP%\vernon-install-%RANDOM%.log"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$msg=$env:SPIN_MSG; $cmd=$env:SPIN_CMD + ' > \"' + $env:SPIN_LOG + '\" 2>&1'; $log=$env:SPIN_LOG; $p=Start-Process -FilePath 'cmd.exe' -ArgumentList '/d','/s','/c',$cmd -WindowStyle Hidden -PassThru; $spin='|','/','-','\'; $i=0; while(-not $p.HasExited){ Write-Host -NoNewline (\"`r[*] {0} {1}\" -f $msg,$spin[$i%%4]); Start-Sleep -Milliseconds 120; $i++ }; $p.WaitForExit(); Write-Host -NoNewline \"`r\"; if($p.ExitCode -ne 0){ $saved=Join-Path (Get-Location) 'vernon-install-log.log'; if(Test-Path $log){ Move-Item -Force $log $saved }; Write-Host \"[ERROR] $msg failed.\"; if((Test-Path $saved) -and (Select-String -Path $saved -Pattern 'Failed to resolve|NameResolutionError|Temporary failure|Could not resolve|unreachable network|WinError 10051' -Quiet)){ Write-Host '        Network connection failed. Check your internet/DNS, then re-run this installer.' } else { Write-Host \"        Full technical details were saved to $saved\" }; exit $p.ExitCode }; if(Test-Path $log){ Remove-Item $log -ErrorAction SilentlyContinue }; Write-Host \"[OK] $msg complete.\"; exit 0"
 exit /b %errorlevel%
 
 :after_jokes
@@ -39,7 +39,7 @@ echo [*] Pre-flight: Checking Python...
 where python > nul 2>&1
 if %errorlevel% neq 0 (
     echo ===================================================
-    echo   J.A.R.V.I.S. SYSTEM ALERT
+    echo   V.E.R.N.O.N. SYSTEM ALERT
     echo ===================================================
     echo [ERROR] Python is not installed or not available on PATH.
     call :joke_python
@@ -207,7 +207,7 @@ echo ===================================================
 echo   LOCAL MODEL SETUP (llama.cpp) [EXPERIMENTAL]
 echo ===================================================
 echo.
-echo JARVIS can run AI models locally on your machine for
+echo VERNON can run AI models locally on your machine for
 echo complete privacy and offline capability.
 echo.
 echo [WARNING] Local models require significant system resources:
@@ -290,7 +290,7 @@ echo   INSTALLATION COMPLETE!
 echo ===================================================
 echo.
 echo You can launch the system using:
-echo launch_jarvis.bat
+echo launch_vernon.bat
 echo.
 echo Once the UI opens, you can:
 echo   - Configure API keys from the settings menu (for cloud AI)

@@ -4,7 +4,7 @@ import requests
 from groq import Groq
 from google import genai
 from dotenv import load_dotenv
-from core.personality import JARVIS_SYSTEM_PROMPT
+from core.personality import VERNON_SYSTEM_PROMPT
 from core.memory import save_memory, load_memory
 from core.profile import load_profile
 
@@ -16,7 +16,7 @@ except ImportError:
 
 load_dotenv()
 
-class JARVISEngine:
+class VERNONEngine:
     def __init__(self):
         self.groq_key = None
         self.google_key = None
@@ -33,7 +33,7 @@ class JARVISEngine:
         self.load_engines()
         
         profile = load_profile()
-        self.system_prompt = f"{JARVIS_SYSTEM_PROMPT}\n\n### Current User Profile:\n{json.dumps(profile, indent=2)}"
+        self.system_prompt = f"{VERNON_SYSTEM_PROMPT}\n\n### Current User Profile:\n{json.dumps(profile, indent=2)}"
         
         # Initialize memory
         self.messages = load_memory()

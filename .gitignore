@@ -2,7 +2,7 @@ venv/
 __pycache__/
 *.pyc
 .env
-jarvis.log
+vernon.log
 temp_audio.wav
 model/
 node_modules/
@@ -13,5 +13,5 @@ memory.json
 *.wav
 *.mp3
 .idea/
-jarvis-web/
+vernon-web/
 voice/

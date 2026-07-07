@@ -1,7 +1,7 @@
 @echo off
-title J.A.R.V.I.S. Launcher
+title V.E.R.N.O.N. Launcher
 echo ===================================================
-echo           INITIALIZING J.A.R.V.I.S. 
+echo           INITIALIZING V.E.R.N.O.N. 
 echo ===================================================
 
 :: Get the current directory to use absolute paths

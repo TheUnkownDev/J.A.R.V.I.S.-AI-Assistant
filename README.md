@@ -1,4 +1,4 @@
-# J.A.R.V.I.S. | The Holographic AI Assistant By AeteX
+# V.E.R.N.O.N. | The Holographic AI Assistant By AeteX
 
 > [!IMPORTANT]
 > **Original project by AeteX.** Forks and modifications are welcome. Please keep original credit when sharing or modifying this project.
@@ -12,11 +12,11 @@
 
 **Current version:** v0.5
 
-> **Development warning:** JARVIS v0.4 is still under active development. Expect some rough edges and possible bugs while the systems are being upgraded.
+> **Development warning:** VERNON v0.4 is still under active development. Expect some rough edges and possible bugs while the systems are being upgraded.
 
 > *"I am Iron Man."*
 
-A sophisticated, holographic AI assistant inspired by Iron Man's J.A.R.V.I.S. This project combines a high-performance Python backend (powered by Groq or Google Gemini) with a stunning Electron-based glassmorphism HUD.
+A sophisticated, holographic AI assistant inspired by Iron Man's V.E.R.N.O.N. This project combines a high-performance Python backend (powered by Groq or Google Gemini) with a stunning Electron-based glassmorphism HUD.
 
 ---
 
@@ -57,7 +57,7 @@ The installer will automatically offer to install llama.cpp during setup. Local 
 4. Models are downloaded to the `models/` folder in the project directory
 
 **Managing Models:**
-- Open JARVIS and go to Settings → Local Models
+- Open VERNON and go to Settings → Local Models
 - View your hardware capabilities and recommended models
 - Download new models directly from Hugging Face
 - Load or delete downloaded models
@@ -90,8 +90,8 @@ If you want to edit the code, tweak the UI, or run the system natively across Wi
 
 1. **Option A: Clone with Git** (Recommended):
    ```powershell
-   git clone https://github.com/aetex/J.A.R.V.I.S.-AI-Assistant.git
-   cd J.A.R.V.I.S.-AI-Assistant
+   git clone https://github.com/aetex/V.E.R.N.O.N.-AI-Assistant.git
+   cd V.E.R.N.O.N.-AI-Assistant
    ```
    **Option B: Download ZIP**:
    - Click the green **"Code"** button at the top of this page.
@@ -101,19 +101,19 @@ If you want to edit the code, tweak the UI, or run the system natively across Wi
    - Double-click the `install_windows.bat` file.
    - Wait for it to say "INSTALLATION COMPLETE!"
 3. **Run & Configure**:
-   - Double-click `launch_jarvis.bat`.
+   - Double-click `launch_vernon.bat`.
    - Once the HUD opens, configure your API keys (Groq or Gemini) directly from the settings menu.
 </details>
 
 <details>
 <summary><b>macOS Setup (Click to expand)</b></summary>
 
-> ⚠️ **Untested on macOS.** These steps are written to the best of my knowledge, but I don't own a Mac to confirm them myself. If something breaks, please [open an issue](https://github.com/aetex/J.A.R.V.I.S.-AI-Assistant/issues) — or better yet, help fix it (or contribute in any other way)! See [Contributing](#5-contributing-macos-help-especially-wanted).
+> ⚠️ **Untested on macOS.** These steps are written to the best of my knowledge, but I don't own a Mac to confirm them myself. If something breaks, please [open an issue](https://github.com/aetex/V.E.R.N.O.N.-AI-Assistant/issues) — or better yet, help fix it (or contribute in any other way)! See [Contributing](#5-contributing-macos-help-especially-wanted).
 
 1. **Option A: Clone with Git** (Recommended):
    ```bash
-   git clone https://github.com/aetex/J.A.R.V.I.S.-AI-Assistant.git
-   cd J.A.R.V.I.S.-AI-Assistant
+   git clone https://github.com/aetex/V.E.R.N.O.N.-AI-Assistant.git
+   cd V.E.R.N.O.N.-AI-Assistant
    ```
    **Option B: Download ZIP**:
    - Click the green **"Code"** button at the top of this page.
@@ -125,7 +125,7 @@ If you want to edit the code, tweak the UI, or run the system natively across Wi
    ```
 3. **Run & Configure**:
    ```bash
-   sh launch_jarvis.sh
+   sh launch_vernon.sh
    ```
    - Once the HUD opens, configure your API keys (Groq or Gemini) directly from the settings menu.
 </details>
@@ -135,8 +135,8 @@ If you want to edit the code, tweak the UI, or run the system natively across Wi
 
 1. **Clone the Repo**:
    ```bash
-   git clone https://github.com/aetex/J.A.R.V.I.S.-AI-Assistant.git
-   cd J.A.R.V.I.S.-AI-Assistant
+   git clone https://github.com/aetex/V.E.R.N.O.N.-AI-Assistant.git
+   cd V.E.R.N.O.N.-AI-Assistant
    ```
 2. **Run the Installer**:
    ```bash
@@ -144,7 +144,7 @@ If you want to edit the code, tweak the UI, or run the system natively across Wi
    ```
 3. **Run & Configure**:
    ```bash
-   sh launch_jarvis.sh
+   sh launch_vernon.sh
    ```
    - Once the HUD opens, configure your API keys (Groq or Gemini) directly from the settings menu.
 </details>
@@ -153,12 +153,12 @@ If you want to edit the code, tweak the UI, or run the system natively across Wi
 
 ## 3. How to Use
 
-> *"JARVIS, it's time for a little upgrades." — Tony Stark*
+> *"VERNON, it's time for a little upgrades." — Tony Stark*
 
-- **Activation**: Say "Jarvis" followed by your command.
+- **Activation**: Say "Vernon" followed by your command.
 - **Modes**: Use the **[MINI]** button for a compact hologram or **[EXIT]** to shut down.
-- **Debugging**: Say "Jarvis, enter debugging mode" to see live system logs.
-- **Interruption**: Click the central JARVIS core at any time to silence him or stop a long response.
+- **Debugging**: Say "Vernon, enter debugging mode" to see live system logs.
+- **Interruption**: Click the central VERNON core at any time to silence him or stop a long response.
 
 ---
 
@@ -170,7 +170,7 @@ If you want to edit the code, tweak the UI, or run the system natively across Wi
 - **Backend Error**: Verify that you have configured your API keys inside the HUD's settings panel.
 - **UI not loading**: Ensure you ran `npm install` inside the `ui` folder.
 - **Local model performance**: For better performance with local models, ensure you have sufficient RAM (16GB+ recommended) and consider using a system with GPU acceleration.
-- **macOS-specific issues**: Since macOS is untested on my end, please report any bugs via [GitHub Issues](https://github.com/aetex/J.A.R.V.I.S.-AI-Assistant/issues) — see the section below if you'd like to help fix them.
+- **macOS-specific issues**: Since macOS is untested on my end, please report any bugs via [GitHub Issues](https://github.com/aetex/V.E.R.N.O.N.-AI-Assistant/issues) — see the section below if you'd like to help fix them.
 
 ---
 
@@ -178,7 +178,7 @@ If you want to edit the code, tweak the UI, or run the system natively across Wi
 
 > *"Sometimes the best solutions are the simplest ones." — Tony Stark*
 
-I built and tested JARVIS entirely on Windows and Linux. **I don't own a Mac**, so the macOS install path (`install_mac.sh` / `launch_jarvis.sh`) is untested on real hardware — it's written based on how it *should* behave, but there's a good chance a few macOS-specific bugs (permissions, mic access, Electron packaging quirks, Apple Silicon vs Intel differences, etc.) are hiding in there. That's the biggest gap right now, so Mac testers/fixers are especially appreciated.
+I built and tested VERNON entirely on Windows and Linux. **I don't own a Mac**, so the macOS install path (`install_mac.sh` / `launch_vernon.sh`) is untested on real hardware — it's written based on how it *should* behave, but there's a good chance a few macOS-specific bugs (permissions, mic access, Electron packaging quirks, Apple Silicon vs Intel differences, etc.) are hiding in there. That's the biggest gap right now, so Mac testers/fixers are especially appreciated.
 
 **But this isn't only about macOS.** Whether or not you have a Mac, there are plenty of ways to pitch in:
 

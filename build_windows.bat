@@ -1,7 +1,7 @@
 @echo off
-title JARVIS Windows Compiler
+title VERNON Windows Compiler
 echo ===================================================
-echo   COMPILING J.A.R.V.I.S. EXECUTABLE (WINDOWS)
+echo   COMPILING V.E.R.N.O.N. EXECUTABLE (WINDOWS)
 echo ===================================================
 echo.
 
@@ -71,8 +71,8 @@ echo IMPORTANT: Your final installer and portable ZIP are NOT in the 'dist' fold
 echo They have been created inside the UI's output folder!
 echo.
 echo Please look here for your final files:
-echo --^> JARVIS\ui\dist\
+echo --^> VERNON\ui\dist\
 echo.
-echo Inside, you will find 'JARVIS Setup.exe' and the portable '.zip'.
+echo Inside, you will find 'VERNON Setup.exe' and the portable '.zip'.
 echo ===================================================
 pause

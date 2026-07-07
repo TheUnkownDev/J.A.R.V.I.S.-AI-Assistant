@@ -1,5 +1,5 @@
 """
-J.A.R.V.I.S. Updater Module
+V.E.R.N.O.N. Updater Module
 A modular updater system with version detection, backup, rollback, and smart dependency management.
 """
 

@@ -1,5 +1,5 @@
 """
-J.A.R.V.I.S. Updater
+V.E.R.N.O.N. Updater
 A comprehensive updater system with version detection, backup, rollback, 
 smart dependency management, and automatic restart capabilities.
 """
@@ -23,13 +23,13 @@ from updater.dependency_manager import DependencyManager
 from updater.update_manifest import UpdateManifest
 
 
-class JARVISUpdater:
-    """Main updater class for J.A.R.V.I.S."""
+class VERNONUpdater:
+    """Main updater class for V.E.R.N.O.N."""
     
     def __init__(self):
         self.base_dir = os.path.dirname(os.path.abspath(__file__))
-        self.github_repo_url = "https://github.com/Aetex/J.A.R.V.I.S.-AI-Assistant.git"
-        self.repo_dir = os.path.join(self.base_dir, "Github", "J.A.R.V.I.S.-AI-Assistant")
+        self.github_repo_url = "https://github.com/Aetex/V.E.R.N.O.N.-AI-Assistant.git"
+        self.repo_dir = os.path.join(self.base_dir, "Github", "V.E.R.N.O.N.-AI-Assistant")
         
         # Initialize modules
         self.version_checker = VersionChecker(self.base_dir, self.repo_dir)
@@ -48,8 +48,8 @@ class JARVISUpdater:
             ".env.*",  # Protect all .env files
             "memory.json",
             "memory_*.json",  # Protect any memory backup files
-            "jarvis.log",
-            "jarvis_*.log",  # Protect any log files
+            "vernon.log",
+            "vernon_*.log",  # Protect any log files
             "Github",
             "__pycache__",
             "backup",  # Protect backup directory
@@ -171,7 +171,7 @@ class JARVISUpdater:
         protected_patterns = [
             '.env',
             'memory',
-            'jarvis.log',
+            'vernon.log',
             '.db',
             '.sqlite',
             'config',
@@ -271,12 +271,12 @@ class JARVISUpdater:
         
         Args:
             force: Force update even if already up to date
-            auto_restart: Automatically restart JARVIS after successful update
+            auto_restart: Automatically restart VERNON after successful update
             
         Returns:
             Tuple of (success, message)
         """
-        print("[*] Starting J.A.R.V.I.S. Updater...")
+        print("[*] Starting V.E.R.N.O.N. Updater...")
         
         # Check for updates
         update_available, current_version, latest_version, check_message = self.check_for_updates()
@@ -335,41 +335,41 @@ class JARVISUpdater:
         
         # Use the current version from package.json after sync
         actual_version = self.version_checker.get_current_version()
-        success_message = f"J.A.R.V.I.S. updated successfully to version {actual_version or latest_version}!"
+        success_message = f"V.E.R.N.O.N. updated successfully to version {actual_version or latest_version}!"
         
         # Auto-restart if requested
         if auto_restart:
-            print("[*] Restarting J.A.R.V.I.S....")
-            restart_success, restart_message = self.restart_jarvis()
+            print("[*] Restarting V.E.R.N.O.N....")
+            restart_success, restart_message = self.restart_vernon()
             if restart_success:
-                success_message += " J.A.R.V.I.S. is restarting..."
+                success_message += " V.E.R.N.O.N. is restarting..."
             else:
                 success_message += f" Restart failed: {restart_message}"
         
         return True, success_message
     
-    def restart_jarvis(self) -> Tuple[bool, str]:
+    def restart_vernon(self) -> Tuple[bool, str]:
         """
-        Restart J.A.R.V.I.S. after successful update.
+        Restart V.E.R.N.O.N. after successful update.
         
         Returns:
             Tuple of (success, message)
         """
         try:
-            # Check if JARVIS is running and terminate it
-            self.terminate_jarvis()
+            # Check if VERNON is running and terminate it
+            self.terminate_vernon()
             
-            # Start JARVIS
-            launch_script = os.path.join(self.base_dir, "launch_jarvis.py")
+            # Start VERNON
+            launch_script = os.path.join(self.base_dir, "launch_vernon.py")
             if os.path.exists(launch_script):
                 subprocess.Popen([sys.executable, launch_script], cwd=self.base_dir)
-                return True, "J.A.R.V.I.S. restarted"
+                return True, "V.E.R.N.O.N. restarted"
             
             # Try batch file on Windows
-            launch_bat = os.path.join(self.base_dir, "launch_jarvis.bat")
+            launch_bat = os.path.join(self.base_dir, "launch_vernon.bat")
             if os.path.exists(launch_bat):
                 subprocess.Popen([launch_bat], cwd=self.base_dir, shell=True)
-                return True, "J.A.R.V.I.S. restarted"
+                return True, "V.E.R.N.O.N. restarted"
             
             return False, "Could not find launch script"
             
@@ -378,9 +378,9 @@ class JARVISUpdater:
             print(f"[ERROR] {error_msg}")
             return False, error_msg
     
-    def terminate_jarvis(self) -> Tuple[bool, str]:
+    def terminate_vernon(self) -> Tuple[bool, str]:
         """
-        Terminate running J.A.R.V.I.S. processes.
+        Terminate running V.E.R.N.O.N. processes.
         
         Returns:
             Tuple of (success, message)
@@ -389,7 +389,7 @@ class JARVISUpdater:
             # Kill Python processes running backend.py or main.py
             if os.name == 'nt':  # Windows
                 subprocess.run(
-                    ["taskkill", "/F", "/IM", "python.exe", "/FI", "WINDOWTITLE eq JARVIS*"],
+                    ["taskkill", "/F", "/IM", "python.exe", "/FI", "WINDOWTITLE eq VERNON*"],
                     capture_output=True
                 )
             else:  # Unix-like
@@ -402,7 +402,7 @@ class JARVISUpdater:
                     capture_output=True
                 )
             
-            return True, "J.A.R.V.I.S. terminated"
+            return True, "V.E.R.N.O.N. terminated"
             
         except Exception as e:
             print(f"[WARN] Termination had issues: {e}")
@@ -441,31 +441,31 @@ def update(force: bool = False, auto_restart: bool = False) -> Tuple[bool, str]:
     
     Args:
         force: Force update even if already up to date
-        auto_restart: Automatically restart JARVIS after successful update
+        auto_restart: Automatically restart VERNON after successful update
         
     Returns:
         Tuple of (success, message)
     """
-    updater = JARVISUpdater()
+    updater = VERNONUpdater()
     return updater.perform_update(force=force, auto_restart=auto_restart)
 
 
 if __name__ == "__main__":
     import argparse
     
-    parser = argparse.ArgumentParser(description="J.A.R.V.I.S. Updater")
+    parser = argparse.ArgumentParser(description="V.E.R.N.O.N. Updater")
     parser.add_argument("--force", action="store_true", help="Force update even if already up to date")
-    parser.add_argument("--auto-restart", action="store_true", help="Automatically restart JARVIS after update")
+    parser.add_argument("--auto-restart", action="store_true", help="Automatically restart VERNON after update")
     parser.add_argument("--rollback", action="store_true", help="Rollback to previous version")
     parser.add_argument("--status", action="store_true", help="Show update status")
     
     args = parser.parse_args()
     
-    updater = JARVISUpdater()
+    updater = VERNONUpdater()
     
     if args.status:
         status = updater.get_update_status()
-        print("\n=== J.A.R.V.I.S. Update Status ===")
+        print("\n=== V.E.R.N.O.N. Update Status ===")
         print(f"Current Version: {status.get('current_version', 'Unknown')}")
         print(f"Last Update: {status.get('last_update', 'Never')}")
         print(f"Total Updates: {status.get('total_updates', 0)}")
