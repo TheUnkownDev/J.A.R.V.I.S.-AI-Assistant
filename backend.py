@@ -1,10 +1,10 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
-from core.llm_client import VERNONEngine
+from core.llm_client import JARVISEngine
 from core.runtime import execute_tool, process_response
-from core.speech import VERNONSpeech
-from core.stt import VERNONSTT
+from core.speech import JARVISSpeech
+from core.stt import JARVISSTT
 from core.wakeword import WakeWordDetector
 from core.logger import setup_logger
 from skills.volume_control import get_volume, set_volume
@@ -40,10 +40,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Initialize VERNON
-vernon = VERNONEngine()
-speech = VERNONSpeech()
-stt = VERNONSTT()
+# Initialize JARVIS
+jarvis = JARVISEngine()
+speech = JARVISSpeech()
+stt = JARVISSTT()
 detector = WakeWordDetector()
 
 def run_wakeword_listener():
@@ -51,7 +51,7 @@ def run_wakeword_listener():
     global is_listening
     while True:
         if not is_listening:
-            if detector.listen_for_keyword("vernon"):
+            if detector.listen_for_keyword("jarvis"):
                 print("[*] Wake word detected!")
                 asyncio.run_coroutine_threadsafe(process_voice_command(), loop)
         time.sleep(0.1)
@@ -80,7 +80,7 @@ async def process_voice_command():
         # 1. Notify UI we heard the wake word
         await push_event("wakeword", {"status": "detected"})
         
-        # 2. Stop VERNON if he's talking
+        # 2. Stop JARVIS if he's talking
         speech.stop()
         
         # 3. Start full transcription
@@ -93,7 +93,7 @@ async def process_voice_command():
             
             # 4. Process with LLM
             response_data = await chat(ChatRequest(message=text))
-            await push_event("vernon_response", response_data)
+            await push_event("jarvis_response", response_data)
             
     finally:
         is_listening = False
@@ -106,13 +106,13 @@ class ChatResponse(BaseModel):
     tools_executed: list
 
 @app.post("/stop")
-async def stop_vernon():
-    """Stops VERNON from talking."""
+async def stop_jarvis():
+    """Stops JARVIS from talking."""
     stopped = speech.stop()
     return {"stopped": stopped}
 
 @app.get("/listen")
-async def listen_vernon():
+async def listen_jarvis():
     """Triggers the microphone and transcribes user speech."""
     text = stt.listen_and_transcribe()
     return {"text": text}
@@ -139,9 +139,9 @@ async def get_status():
 
 @app.post("/reload-engine")
 async def reload_engine():
-    """Reloads the VERNON engine configuration without restarting."""
+    """Reloads the JARVIS engine configuration without restarting."""
     try:
-        vernon.load_engines()
+        jarvis.load_engines()
         return {"success": True, "message": "Engine reloaded successfully"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -150,14 +150,14 @@ async def reload_engine():
 async def chat(request: ChatRequest):
     """Processes a chat message and returns the response + tool logs."""
     try:
-        response_text = vernon.chat(request.message)
+        response_text = jarvis.chat(request.message)
         final_text, tools_executed = process_response(response_text)
 
         if any(tool["name"] == "shutdown_system" for tool in tools_executed):
             asyncio.create_task(shutdown_all())
         
         # Failsafe: Trigger shutdown if the LLM says goodbye but forgets the tool call
-        shutdown_keywords = ["*vernon offline*", "shutting down systems", "goodnight, sir"]
+        shutdown_keywords = ["*jarvis offline*", "shutting down systems", "goodnight, sir"]
         if any(kw in final_text.lower() for kw in shutdown_keywords):
             if not any(t["name"] == "shutdown_system" for t in tools_executed):
                 print("[*] Failsafe: Shutdown keyword detected. Initiating power down...")

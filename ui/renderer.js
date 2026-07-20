@@ -3,7 +3,7 @@ const { ipcRenderer } = require('electron');
 const input = document.getElementById('user-input');
 const chatLog = document.getElementById('chat-log');
 const micBtn = document.getElementById('mic-btn');
-const core = document.getElementById('vernon-core');
+const core = document.getElementById('jarvis-core');
 const innerCore = core.querySelector('.inner-core');
 
 const cpuBar = document.getElementById('cpu-bar');
@@ -41,9 +41,9 @@ function addMessage(text, sender, isHTML = false) {
     const div = document.createElement('div');
     div.className = `msg msg-${sender}`;
     if (isHTML) {
-        div.innerHTML = sender === 'vernon' ? `> ${text}` : `[USER]: ${text}`;
+        div.innerHTML = sender === 'jarvis' ? `> ${text}` : `[USER]: ${text}`;
     } else {
-        div.innerText = sender === 'vernon' ? `> ${text}` : `[USER]: ${text}`;
+        div.innerText = sender === 'jarvis' ? `> ${text}` : `[USER]: ${text}`;
     }
     
     // Smooth scroll animation
@@ -68,11 +68,11 @@ async function stopSpeech() {
     } catch (e) { console.error("Failed to stop speech"); }
 }
 
-function handleVernonResponse(data) {
+function handleJarvisResponse(data) {
     if (!data) return;
     
     if (data.response) {
-        addMessage(data.response, 'vernon');
+        addMessage(data.response, 'jarvis');
     }
     
     // Check for shutdown tool call
@@ -106,17 +106,17 @@ async function sendMessage(msg) {
 
         if (!res.ok) {
             const errorData = await res.json();
-            addMessage(`Sir, my processors are reporting an error: ${errorData.detail || 'Internal Error'}`, 'vernon');
+            addMessage(`Sir, my processors are reporting an error: ${errorData.detail || 'Internal Error'}`, 'jarvis');
             setCoreListen(false);
             return;
         }
 
         const data = await res.json();
-        handleVernonResponse(data);
+        handleJarvisResponse(data);
         setCoreListen(false);
         
     } catch (error) {
-        addMessage("I'm having trouble connecting to my core processors, sir. Please ensure the backend is running. <span id='open-keys-err' style='color: #00f6ff; text-decoration: underline; cursor: pointer; font-weight: bold;'>Configure API Keys</span>", 'vernon', true);
+        addMessage("I'm having trouble connecting to my core processors, sir. Please ensure the backend is running. <span id='open-keys-err' style='color: #00f6ff; text-decoration: underline; cursor: pointer; font-weight: bold;'>Configure API Keys</span>", 'jarvis', true);
         const errLink = document.getElementById('open-keys-err');
         if (errLink) {
             errLink.addEventListener('click', openSetupOverlay);
@@ -188,7 +188,7 @@ micBtn.addEventListener('click', async () => {
             await sendMessage(data.text);
         }
     } catch (e) {
-        addMessage("Sir, I'm unable to access the microphone array.", 'vernon');
+        addMessage("Sir, I'm unable to access the microphone array.", 'jarvis');
     } finally {
         micBtn.style.color = "#00f6ff";
         micBtn.style.transform = 'scale(1)';
@@ -215,7 +215,7 @@ const miniCore = document.getElementById('mini-core');
 let isMini = false;
 
 exitBtn.addEventListener('click', async () => {
-    addMessage("Shutting down all systems, sir.", 'vernon');
+    addMessage("Shutting down all systems, sir.", 'jarvis');
     
     // Shutdown animation
     const container = document.getElementById('full-view');
@@ -282,10 +282,10 @@ eventSource.addEventListener('user_speech', (e) => {
     setCoreListen(true);
 });
 
-eventSource.addEventListener('vernon_response', (e) => {
+eventSource.addEventListener('jarvis_response', (e) => {
     const data = JSON.parse(e.data);
     setCoreListen(true);
-    handleVernonResponse(data);
+    handleJarvisResponse(data);
     setCoreListen(false);
 });
 
@@ -526,7 +526,7 @@ document.getElementById('save-priority-btn').addEventListener('click', async () 
     try {
         await ipcRenderer.invoke('save-provider-priority', providerPriority);
         closeProviderOverlay();
-        addMessage('AI provider priority updated successfully. Restart VERNON to apply changes.', 'vernon');
+        addMessage('AI provider priority updated successfully. Restart JARVIS to apply changes.', 'jarvis');
     } catch (error) {
         alert('Failed to save provider priority: ' + error.message);
     }
@@ -552,7 +552,7 @@ document.getElementById('local-model-toggle').addEventListener('click', async ()
             toggle.style.color = '#ff4444';
             status.textContent = 'ONLINE';
             status.style.color = '#00ff00';
-            addMessage('Local AI model enabled. Please ensure a model is loaded in settings.', 'vernon');
+            addMessage('Local AI model enabled. Please ensure a model is loaded in settings.', 'jarvis');
         } else {
             toggle.textContent = 'ENABLE';
             toggle.style.background = 'rgba(0, 246, 255, 0.1)';
@@ -560,7 +560,7 @@ document.getElementById('local-model-toggle').addEventListener('click', async ()
             toggle.style.color = '#00f6ff';
             status.textContent = 'OFFLINE';
             status.style.color = '#a0d8ef';
-            addMessage('Local AI model disabled. Switching to cloud APIs.', 'vernon');
+            addMessage('Local AI model disabled. Switching to cloud APIs.', 'jarvis');
         }
     } catch (error) {
         alert('Failed to toggle local model: ' + error.message);

@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "==================================================="
-echo "      INITIALIZING V.E.R.N.O.N. (UNIX)"
+echo "      INITIALIZING J.A.R.V.I.S. (UNIX)"
 echo "==================================================="
 
 cd "$(dirname "$0")"

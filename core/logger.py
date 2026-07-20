@@ -1,9 +1,9 @@
 import sys
 import os
 
-LOG_FILE = "vernon.log"
+LOG_FILE = "jarvis.log"
 
-class VERNONLogger:
+class JARVISLogger:
     def __init__(self):
         self.terminal = sys.stdout
         self.log = open(LOG_FILE, "a", encoding="utf-8")
@@ -28,8 +28,8 @@ def setup_logger():
         if os.path.exists(LOG_FILE):
             os.remove(LOG_FILE)
     except PermissionError:
-        print("[!] Warning: vernon.log is locked. Appending to existing log.")
+        print("[!] Warning: jarvis.log is locked. Appending to existing log.")
     
-    sys.stdout = VERNONLogger()
+    sys.stdout = JARVISLogger()
     sys.stderr = sys.stdout
     print("[*] Logging system initialized.")

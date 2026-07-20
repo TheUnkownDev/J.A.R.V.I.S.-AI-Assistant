@@ -222,13 +222,13 @@ body::before {
     opacity: 1;
     transform: translateX(5px);
 }
-.msg-vernon { 
+.msg-jarvis { 
     color: var(--glow-color); 
     text-shadow: 0 0 5px var(--glow-color);
     animation: quantumFlicker 2s ease-in-out infinite;
     transition: all 0.3s ease;
 }
-.msg-vernon:hover {
+.msg-jarvis:hover {
     text-shadow: 0 0 10px var(--glow-color), 0 0 20px rgba(0, 246, 255, 0.5);
 }
 

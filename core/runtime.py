@@ -27,10 +27,10 @@ def execute_tool(tool_name, args):
     if tool_name == "shutdown_system":
         return "Shutting down systems, sir. Goodnight."
     if tool_name == "open_debug_console":
-        os.system('start "VERNON Debug Console" cmd /k "powershell Get-Content vernon.log -Wait"')
+        os.system('start "JARVIS Debug Console" cmd /k "powershell Get-Content jarvis.log -Wait"')
         return "Opening debugging console, sir. All system logs are now being streamed."
     if tool_name == "close_debug_console":
-        os.system('taskkill /F /FI "WINDOWTITLE eq VERNON Debug Console*"')
+        os.system('taskkill /F /FI "WINDOWTITLE eq JARVIS Debug Console*"')
         return "Terminating debug console, sir. Normal operational parameters restored."
     if tool_name == "open_path":
         return open_path(args.get("path", os.getcwd()))

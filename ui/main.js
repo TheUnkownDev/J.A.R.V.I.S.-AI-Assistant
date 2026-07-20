@@ -5,7 +5,7 @@ const Store = require('electron-store');
 const fs = require('fs');
 
 // Set app name
-app.name = 'V.E.R.N.O.N. AI';
+app.name = 'JARVIS';
 
 // Set base directory
 const baseDir = path.join(__dirname, '..');
@@ -144,7 +144,7 @@ function createWindow() {
     transparent: true,
     alwaysOnTop: false,
     skipTaskbar: false, // Show in taskbar
-    title: 'V.E.R.N.O.N. AI', // Set window title
+    title: 'JARVIS', // Set window title
     show: false, // Keep hidden until splash hands off
     webPreferences: {
       nodeIntegration: true,
@@ -185,8 +185,8 @@ function createTray() {
     tray = new Tray(iconPath);
     
     const contextMenu = Menu.buildFromTemplate([
-      { label: 'Show V.E.R.N.O.N. AI', click: () => win.show() },
-      { label: 'Hide V.E.R.N.O.N. AI', click: () => win.hide() },
+      { label: 'Show JARVIS', click: () => win.show() },
+      { label: 'Hide JARVIS', click: () => win.hide() },
       { type: 'separator' },
       { label: 'Exit', click: () => {
         app.isQuitting = true;
@@ -194,7 +194,7 @@ function createTray() {
       }}
     ]);
 
-    tray.setToolTip('V.E.R.N.O.N. AI Assistant');
+    tray.setToolTip('JARVIS AI Assistant');
     tray.setContextMenu(contextMenu);
 
     tray.on('click', () => {
@@ -321,7 +321,7 @@ function runCommandPromise(cmd, cwd) {
 
 // Check if update is available
 async function isUpdateAvailable() {
-  const repoPath = path.join(__dirname, '..', 'Github', 'V.E.R.N.O.N.-AI-Assistant');
+  const repoPath = path.join(__dirname, '..', 'Github', 'J.A.R.V.I.S.-AI-Assistant');
   if (!fs.existsSync(repoPath)) {
     console.log("[*] GitHub repository not found at:", repoPath);
     return false;
@@ -464,7 +464,7 @@ ipcMain.handle('perform-update', async (event) => {
         const hasSuccessIndicators = allOutput.includes('Already up to date') || 
                                       allOutput.includes('updated successfully') ||
                                       allOutput.includes('Update marked as complete') ||
-                                      allOutput.includes('V.E.R.N.O.N. updated successfully');
+                                      allOutput.includes('J.A.R.V.I.S. updated successfully');
         
         const isSuccessful = code === 0 && !updateFailed && (updateCompleted || hasSuccessIndicators);
         
@@ -474,7 +474,7 @@ ipcMain.handle('perform-update', async (event) => {
             if (isUpToDate) {
               win.webContents.send('update-success', 'System is already up to date. No updates needed.');
             } else {
-              win.webContents.send('update-success', 'Update complete! Restarting V.E.R.N.O.N. system...');
+              win.webContents.send('update-success', 'Update complete! Restarting J.A.R.V.I.S. system...');
               setTimeout(() => {
                 app.relaunch();
                 app.exit();

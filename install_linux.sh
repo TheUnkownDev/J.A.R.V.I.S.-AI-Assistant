@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "==================================================="
-echo "  V.E.R.N.O.N. AUTOMATED INSTALLATION (LINUX)"
+echo "  J.A.R.V.I.S. AUTOMATED INSTALLATION (LINUX)"
 echo "==================================================="
 echo ""
 
@@ -18,13 +18,13 @@ command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
-vernon_error_joke() {
+jarvis_error_joke() {
     case "$1" in
-        python) echo "        VERNON: I appear to be missing a brain, sir. Python would be a fine place to start." ;;
+        python) echo "        JARVIS: I appear to be missing a brain, sir. Python would be a fine place to start." ;;
         system) echo "        Tony Stark: The package manager flinched. Tell it I built this in a cave." ;;
         pip) echo "        Tony Stark: Dependency chaos. Classic. I usually fix this with a suit and questionable confidence." ;;
-        ui) echo "        VERNON: The HUD refuses to assemble. Even Stark tech needs its npm bolts tightened." ;;
-        *) echo "        VERNON: Something broke, sir. I recommend blaming physics until we find the log." ;;
+        ui) echo "        JARVIS: The HUD refuses to assemble. Even Stark tech needs its npm bolts tightened." ;;
+        *) echo "        JARVIS: Something broke, sir. I recommend blaming physics until we find the log." ;;
     esac
 }
 
@@ -54,7 +54,7 @@ run_with_spinner() {
     printf "\r"
 
     if [ "$status" -ne 0 ]; then
-        saved_log="./vernon-install-log.log"
+        saved_log="./jarvis-install-log.log"
         mv "$log_file" "$saved_log"
         echo "[ERROR] $message failed."
         if grep -qiE "Failed to resolve|NameResolutionError|Temporary failure|Could not resolve|unreachable network|Network is unreachable" "$saved_log"; then
@@ -122,10 +122,10 @@ check_python() {
     fi
 
     echo "==================================================="
-    echo "  V.E.R.N.O.N. SYSTEM ALERT"
+    echo "  J.A.R.V.I.S. SYSTEM ALERT"
     echo "==================================================="
     echo "[ERROR] Python 3 is not installed or not available on PATH."
-    vernon_error_joke python
+    jarvis_error_joke python
     echo "        Arc reactor offline. Please install Python 3 with:"
     echo "        $python_install_command"
     echo "        Then re-run this script."
@@ -189,14 +189,14 @@ install_system_dependencies() {
     if [ "$(id -u)" -ne 0 ] && command_exists sudo; then
         sudo -v || {
             echo "[ERROR] Administrator authentication failed."
-            vernon_error_joke system
+            jarvis_error_joke system
             exit 1
         }
     fi
 
     if ! run_with_spinner "Installing system dependencies" sh -c "$install_cmd"; then
         echo "[ERROR] System dependency installation failed."
-        vernon_error_joke system
+        jarvis_error_joke system
         exit 1
     fi
 
@@ -222,12 +222,12 @@ echo "[*] Step 3: Installing Python Core Dependencies..."
 . venv/bin/activate
 run_with_spinner "Upgrading pip" python3 -m pip install --upgrade pip || {
     echo "[ERROR] Failed to upgrade pip."
-    vernon_error_joke pip
+    jarvis_error_joke pip
     exit 1
 }
 run_with_spinner "Installing Python dependencies" pip install --progress-bar off -r requirements.txt || {
     echo "[ERROR] Python dependency installation failed."
-    vernon_error_joke pip
+    jarvis_error_joke pip
     exit 1
 }
 echo "[OK] Python dependencies installed."
@@ -237,7 +237,7 @@ echo "[*] Step 4: Installing UI Components..."
 cd ui
 run_with_spinner "Installing UI components" npm install --silent || {
     echo "[ERROR] UI dependency installation failed."
-    vernon_error_joke ui
+    jarvis_error_joke ui
     exit 1
 }
 cd ..
@@ -302,7 +302,7 @@ echo "==================================================="
 echo "  LOCAL MODEL SETUP (llama.cpp) [EXPERIMENTAL]"
 echo "==================================================="
 echo ""
-echo "VERNON can run AI models locally on your machine for"
+echo "JARVIS can run AI models locally on your machine for"
 echo "complete privacy and offline capability."
 echo ""
 echo "[WARNING] Local models require significant system resources:"
@@ -407,7 +407,7 @@ echo "  INSTALLATION COMPLETE!"
 echo "==================================================="
 echo ""
 echo "You can launch the system using:"
-echo "./launch_vernon.sh"
+echo "./launch_jarvis.sh"
 echo ""
 echo "Once the UI opens, you can:"
 echo "  - Configure API keys from the settings menu (for cloud AI)"

@@ -1,6 +1,6 @@
 """
 Backup Manager Module
-Handles creating and managing backups of critical V.E.R.N.O.N. files.
+Handles creating and managing backups of critical J.A.R.V.I.S. files.
 """
 
 import shutil

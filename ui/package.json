@@ -1,7 +1,7 @@
 {
-  "name": "vernon",
+  "name": "jarvis",
   "version": "0.5.0",
-  "description": "V.E.R.N.O.N. AI Assistant",
+  "description": "J.A.R.V.I.S. AI Assistant",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
@@ -18,8 +18,8 @@
     "electron-store": "^8.2.0"
   },
   "build": {
-    "appId": "com.aetex.vernon",
-    "productName": "V.E.R.N.O.N. AI",
+    "appId": "com.starkindustries.jarvis",
+    "productName": "JARVIS",
     "directories": {
       "output": "dist"
     },
