@@ -321,7 +321,7 @@ function runCommandPromise(cmd, cwd) {
 
 // Check if update is available
 async function isUpdateAvailable() {
-  const repoPath = path.join(__dirname, '..', 'Github', 'V.E.R.N.O.N.-AI');
+  const repoPath = path.join(__dirname, '..', 'Github', 'V.E.R.N.O.N.-AI-Assistant');
   if (!fs.existsSync(repoPath)) {
     console.log("[*] GitHub repository not found at:", repoPath);
     return false;
