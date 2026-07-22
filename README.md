@@ -12,7 +12,7 @@
 
 **Current version:** v0.5
 
-> **Development warning:** JARVIS v0.4 is still under active development. Expect some rough edges and possible bugs while the systems are being upgraded.
+> **Development warning:** JARVIS v0.5 is still under active development. Expect some rough edges and possible bugs while the systems are being upgraded.
 
 > *"I am Iron Man."*
 
