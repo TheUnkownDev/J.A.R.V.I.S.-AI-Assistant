@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "==================================================="
-echo "  INITIALIZING J.A.R.V.I.S. DEBUG MODE (UNIX)"
+echo "  INITIALIZING N.O.V.A. DEBUG MODE (UNIX)"
 echo "==================================================="
 
 cd "$(dirname "$0")"

@@ -1,7 +1,7 @@
 {
-  "name": "jarvis",
+  "name": "nova",
   "version": "0.5.0",
-  "description": "J.A.R.V.I.S. AI Assistant",
+  "description": "N.O.V.A. AI Assistant",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
@@ -18,7 +18,7 @@
     "electron-store": "^8.2.0"
   },
   "build": {
-    "appId": "com.starkindustries.jarvis",
+    "appId": "com.starkindustries.nova",
     "productName": "JARVIS",
     "directories": {
       "output": "dist"

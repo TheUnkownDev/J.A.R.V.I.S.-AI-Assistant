@@ -1,6 +1,6 @@
 """
 Backup Manager Module
-Handles creating and managing backups of critical J.A.R.V.I.S. files.
+Handles creating and managing backups of critical N.O.V.A. files.
 """
 
 import shutil

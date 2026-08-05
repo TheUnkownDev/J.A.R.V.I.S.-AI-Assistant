@@ -1,6 +1,6 @@
 """
 Version Checker Module
-Handles version detection and comparison for J.A.R.V.I.S. updates.
+Handles version detection and comparison for N.O.V.A. updates.
 """
 
 import subprocess
@@ -17,7 +17,7 @@ class VersionChecker:
     def __init__(self, base_dir: str, repo_dir: str):
         self.base_dir = base_dir
         self.repo_dir = repo_dir
-        self.github_repo_url = "https://github.com/Aetex/J.A.R.V.I.S.-AI-Assistant.git"
+        self.github_repo_url = "https://github.com/Aetex/N.O.V.A.-AI-Assistant.git"
         self.package_json_path = os.path.join(base_dir, "ui", "package.json")
         self.repo_package_json_path = os.path.join(repo_dir, "ui", "package.json")
     
@@ -52,7 +52,7 @@ class VersionChecker:
         """Get the latest version from GitHub repository using GitHub API."""
         try:
             # GitHub API endpoint for the repository's package.json
-            api_url = "https://api.github.com/repos/Aetex/J.A.R.V.I.S.-AI-Assistant/contents/ui/package.json"
+            api_url = "https://api.github.com/repos/Aetex/N.O.V.A.-AI-Assistant/contents/ui/package.json"
             
             request = urllib.request.Request(api_url)
             request.add_header('User-Agent', 'JARVIS-Updater')

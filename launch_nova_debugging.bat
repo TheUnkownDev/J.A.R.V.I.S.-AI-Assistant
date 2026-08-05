@@ -1,7 +1,7 @@
 @echo off
-title J.A.R.V.I.S. Debugging Launcher
+title N.O.V.A. Debugging Launcher
 echo ===================================================
-echo   INITIALIZING J.A.R.V.I.S. DEBUG MODE
+echo   INITIALIZING N.O.V.A. DEBUG MODE
 echo ===================================================
 
 :: Start the Python Backend in a VISIBLE window

@@ -41,7 +41,7 @@ app.add_middleware(
 )
 
 # Initialize JARVIS
-jarvis = JARVISEngine()
+nova = JARVISEngine()
 speech = JARVISSpeech()
 stt = JARVISSTT()
 detector = WakeWordDetector()
@@ -51,7 +51,7 @@ def run_wakeword_listener():
     global is_listening
     while True:
         if not is_listening:
-            if detector.listen_for_keyword("jarvis"):
+            if detector.listen_for_keyword("nova"):
                 print("[*] Wake word detected!")
                 asyncio.run_coroutine_threadsafe(process_voice_command(), loop)
         time.sleep(0.1)
@@ -141,7 +141,7 @@ async def get_status():
 async def reload_engine():
     """Reloads the JARVIS engine configuration without restarting."""
     try:
-        jarvis.load_engines()
+        nova.load_engines()
         return {"success": True, "message": "Engine reloaded successfully"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -150,14 +150,14 @@ async def reload_engine():
 async def chat(request: ChatRequest):
     """Processes a chat message and returns the response + tool logs."""
     try:
-        response_text = jarvis.chat(request.message)
+        response_text = nova.chat(request.message)
         final_text, tools_executed = process_response(response_text)
 
         if any(tool["name"] == "shutdown_system" for tool in tools_executed):
             asyncio.create_task(shutdown_all())
         
         # Failsafe: Trigger shutdown if the LLM says goodbye but forgets the tool call
-        shutdown_keywords = ["*jarvis offline*", "shutting down systems", "goodnight, sir"]
+        shutdown_keywords = ["*nova offline*", "shutting down systems", "goodnight, sir"]
         if any(kw in final_text.lower() for kw in shutdown_keywords):
             if not any(t["name"] == "shutdown_system" for t in tools_executed):
                 print("[*] Failsafe: Shutdown keyword detected. Initiating power down...")

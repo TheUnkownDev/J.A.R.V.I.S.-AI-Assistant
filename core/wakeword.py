@@ -27,7 +27,7 @@ class WakeWordDetector:
             print(status, file=sys.stderr)
         self.audio_queue.put(bytes(indata))
 
-    def listen_for_keyword(self, keyword="jarvis"):
+    def listen_for_keyword(self, keyword="nova"):
         """Continuous listener for the specific keyword."""
         print(f"[*] Wake word engine active. Listening for '{keyword}'...")
         with sd.RawInputStream(samplerate=16000, blocksize=8000, dtype='int16',

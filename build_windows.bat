@@ -1,7 +1,7 @@
 @echo off
 title JARVIS Windows Compiler
 echo ===================================================
-echo   COMPILING J.A.R.V.I.S. EXECUTABLE (WINDOWS)
+echo   COMPILING N.O.V.A. EXECUTABLE (WINDOWS)
 echo ===================================================
 echo.
 

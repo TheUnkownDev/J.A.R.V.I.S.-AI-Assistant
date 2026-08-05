@@ -1,5 +1,5 @@
 """
-J.A.R.V.I.S. Updater
+N.O.V.A. Updater
 A comprehensive updater system with version detection, backup, rollback, 
 smart dependency management, and automatic restart capabilities.
 """
@@ -24,12 +24,12 @@ from updater.update_manifest import UpdateManifest
 
 
 class JARVISUpdater:
-    """Main updater class for J.A.R.V.I.S."""
+    """Main updater class for N.O.V.A."""
     
     def __init__(self):
         self.base_dir = os.path.dirname(os.path.abspath(__file__))
-        self.github_repo_url = "https://github.com/Aetex/J.A.R.V.I.S.-AI-Assistant.git"
-        self.repo_dir = os.path.join(self.base_dir, "Github", "J.A.R.V.I.S.-AI-Assistant")
+        self.github_repo_url = "https://github.com/Aetex/N.O.V.A.-AI-Assistant.git"
+        self.repo_dir = os.path.join(self.base_dir, "Github", "N.O.V.A.-AI-Assistant")
         
         # Initialize modules
         self.version_checker = VersionChecker(self.base_dir, self.repo_dir)
@@ -48,7 +48,7 @@ class JARVISUpdater:
             ".env.*",  # Protect all .env files
             "memory.json",
             "memory_*.json",  # Protect any memory backup files
-            "jarvis.log",
+            "nova.log",
             "jarvis_*.log",  # Protect any log files
             "Github",
             "__pycache__",
@@ -171,7 +171,7 @@ class JARVISUpdater:
         protected_patterns = [
             '.env',
             'memory',
-            'jarvis.log',
+            'nova.log',
             '.db',
             '.sqlite',
             'config',
@@ -276,7 +276,7 @@ class JARVISUpdater:
         Returns:
             Tuple of (success, message)
         """
-        print("[*] Starting J.A.R.V.I.S. Updater...")
+        print("[*] Starting N.O.V.A. Updater...")
         
         # Check for updates
         update_available, current_version, latest_version, check_message = self.check_for_updates()
@@ -335,14 +335,14 @@ class JARVISUpdater:
         
         # Use the current version from package.json after sync
         actual_version = self.version_checker.get_current_version()
-        success_message = f"J.A.R.V.I.S. updated successfully to version {actual_version or latest_version}!"
+        success_message = f"N.O.V.A. updated successfully to version {actual_version or latest_version}!"
         
         # Auto-restart if requested
         if auto_restart:
-            print("[*] Restarting J.A.R.V.I.S....")
+            print("[*] Restarting N.O.V.A....")
             restart_success, restart_message = self.restart_jarvis()
             if restart_success:
-                success_message += " J.A.R.V.I.S. is restarting..."
+                success_message += " N.O.V.A. is restarting..."
             else:
                 success_message += f" Restart failed: {restart_message}"
         
@@ -350,7 +350,7 @@ class JARVISUpdater:
     
     def restart_jarvis(self) -> Tuple[bool, str]:
         """
-        Restart J.A.R.V.I.S. after successful update.
+        Restart N.O.V.A. after successful update.
         
         Returns:
             Tuple of (success, message)
@@ -363,13 +363,13 @@ class JARVISUpdater:
             launch_script = os.path.join(self.base_dir, "launch_jarvis.py")
             if os.path.exists(launch_script):
                 subprocess.Popen([sys.executable, launch_script], cwd=self.base_dir)
-                return True, "J.A.R.V.I.S. restarted"
+                return True, "N.O.V.A. restarted"
             
             # Try batch file on Windows
             launch_bat = os.path.join(self.base_dir, "launch_jarvis.bat")
             if os.path.exists(launch_bat):
                 subprocess.Popen([launch_bat], cwd=self.base_dir, shell=True)
-                return True, "J.A.R.V.I.S. restarted"
+                return True, "N.O.V.A. restarted"
             
             return False, "Could not find launch script"
             
@@ -380,7 +380,7 @@ class JARVISUpdater:
     
     def terminate_jarvis(self) -> Tuple[bool, str]:
         """
-        Terminate running J.A.R.V.I.S. processes.
+        Terminate running N.O.V.A. processes.
         
         Returns:
             Tuple of (success, message)
@@ -402,7 +402,7 @@ class JARVISUpdater:
                     capture_output=True
                 )
             
-            return True, "J.A.R.V.I.S. terminated"
+            return True, "N.O.V.A. terminated"
             
         except Exception as e:
             print(f"[WARN] Termination had issues: {e}")
@@ -453,7 +453,7 @@ def update(force: bool = False, auto_restart: bool = False) -> Tuple[bool, str]:
 if __name__ == "__main__":
     import argparse
     
-    parser = argparse.ArgumentParser(description="J.A.R.V.I.S. Updater")
+    parser = argparse.ArgumentParser(description="N.O.V.A. Updater")
     parser.add_argument("--force", action="store_true", help="Force update even if already up to date")
     parser.add_argument("--auto-restart", action="store_true", help="Automatically restart JARVIS after update")
     parser.add_argument("--rollback", action="store_true", help="Rollback to previous version")
@@ -465,7 +465,7 @@ if __name__ == "__main__":
     
     if args.status:
         status = updater.get_update_status()
-        print("\n=== J.A.R.V.I.S. Update Status ===")
+        print("\n=== N.O.V.A. Update Status ===")
         print(f"Current Version: {status.get('current_version', 'Unknown')}")
         print(f"Last Update: {status.get('last_update', 'Never')}")
         print(f"Total Updates: {status.get('total_updates', 0)}")

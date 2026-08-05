@@ -4,7 +4,7 @@ import os
 import sys
 
 def launch():
-    print("--- J.A.R.V.I.S. Launcher ---")
+    print("--- N.O.V.A. Launcher ---")
     
     # 1. Start the backend
     print("[*] Starting Backend...")

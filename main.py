@@ -48,7 +48,7 @@ ENV_FILE = os.path.join(PROJECT_ROOT, ".env")
 
 
 def build_parser():
-    parser = argparse.ArgumentParser(description="J.A.R.V.I.S. command-line interface")
+    parser = argparse.ArgumentParser(description="N.O.V.A. command-line interface")
     parser.add_argument("-p", "--prompt", help="Run a single prompt and exit instead of interactive mode.")
     parser.add_argument("--speak", action="store_true", help="Enable spoken responses in the CLI.")
     parser.add_argument("--clear-history", action="store_true", help="Clear saved conversation history before starting.")
@@ -89,11 +89,11 @@ def print_assistant(message):
 
 
 def build_prompt():
-    return style(CLITheme.prompt, "jarvis> ")
+    return style(CLITheme.prompt, "nova> ")
 
 
 def print_banner():
-    print(style(CLITheme.brand, "J.A.R.V.I.S. CLI"))
+    print(style(CLITheme.brand, "N.O.V.A. CLI"))
     print(style(CLITheme.muted, "Type /help for commands. Use Up/Down arrows for history."))
 
 
@@ -316,7 +316,7 @@ def make_project_relative(path):
         return path
 
 
-def configure_llama_model(jarvis, model_path):
+def configure_llama_model(nova, model_path):
     relative_path = make_project_relative(model_path)
     os.environ["LLAMA_CPP_ENABLED"] = "true"
     os.environ["LLAMA_CPP_MODEL_PATH"] = relative_path
@@ -328,11 +328,11 @@ def configure_llama_model(jarvis, model_path):
             "AI_PROVIDER_PRIORITY": "llama_cpp,groq,gemini",
         }
     )
-    jarvis.load_engines()
+    nova.load_engines()
     return relative_path
 
 
-def clear_active_llama_model(jarvis):
+def clear_active_llama_model(nova):
     os.environ["LLAMA_CPP_ENABLED"] = "false"
     os.environ["LLAMA_CPP_MODEL_PATH"] = ""
     update_env_file(
@@ -341,10 +341,10 @@ def clear_active_llama_model(jarvis):
             "LLAMA_CPP_MODEL_PATH": "",
         }
     )
-    jarvis.load_engines()
+    nova.load_engines()
 
 
-def print_downloaded_models(manager, jarvis):
+def print_downloaded_models(manager, nova):
     downloaded = manager.get_downloaded_models()
     active_path = os.getenv("LLAMA_CPP_MODEL_PATH", "")
     active_name = os.path.basename(active_path) if active_path else ""
@@ -406,7 +406,7 @@ def resolve_downloaded_model(manager, selector):
     return None
 
 
-def handle_models_command(raw_input, jarvis):
+def handle_models_command(raw_input, nova):
     try:
         parts = shlex.split(raw_input, posix=False)
     except ValueError as exc:
@@ -421,7 +421,7 @@ def handle_models_command(raw_input, jarvis):
         return
 
     if subcommand in {"downloaded", "list"}:
-        print_downloaded_models(manager, jarvis)
+        print_downloaded_models(manager, nova)
         return
 
     if subcommand == "available":
@@ -440,7 +440,7 @@ def handle_models_command(raw_input, jarvis):
         if not model:
             print_error("Model not found. Use /models to see downloaded files.")
             return
-        relative_path = configure_llama_model(jarvis, model["path"])
+        relative_path = configure_llama_model(nova, model["path"])
         print_info(f"Active llama.cpp model set to {relative_path}")
         return
 
@@ -487,7 +487,7 @@ def handle_models_command(raw_input, jarvis):
         result = manager.delete_model(model["file"])
         if result.get("success"):
             if model["file"] == active_name:
-                clear_active_llama_model(jarvis)
+                clear_active_llama_model(nova)
                 print_warning("Deleted the active model, so local llama.cpp was disabled.")
             print_info(result["message"])
         else:
@@ -509,8 +509,8 @@ async def maybe_speak(speech, text):
         await speech.speak(text)
 
 
-async def run_turn(jarvis, user_input, speech=None):
-    raw_response = jarvis.chat(user_input)
+async def run_turn(nova, user_input, speech=None):
+    raw_response = nova.chat(user_input)
     final_text, tools_executed = process_response(raw_response)
 
     for tool in tools_executed:
@@ -529,7 +529,7 @@ async def run_turn(jarvis, user_input, speech=None):
     return True
 
 
-async def interactive_cli(jarvis, speech=None):
+async def interactive_cli(nova, speech=None):
     history = InputHistory(HISTORY_FILE)
     print_banner()
     welcome_msg = "At your service, sir. Systems are fully operational."
@@ -557,7 +557,7 @@ async def interactive_cli(jarvis, speech=None):
 
         history.add(normalized)
 
-        if lowered in {"/exit", "/quit", "exit", "quit", "goodnight jarvis"}:
+        if lowered in {"/exit", "/quit", "exit", "quit", "goodnight nova"}:
             goodbye = "Goodnight, sir. Systems powering down."
             print_assistant(goodbye)
             await maybe_speak(speech, goodbye)
@@ -566,7 +566,7 @@ async def interactive_cli(jarvis, speech=None):
             print_help()
             continue
         if lowered.startswith("/models"):
-            handle_models_command(normalized, jarvis)
+            handle_models_command(normalized, nova)
             continue
         if lowered == "/history":
             print_history(history)
@@ -576,14 +576,14 @@ async def interactive_cli(jarvis, speech=None):
             print_info("CLI command history cleared.")
             continue
         if lowered == "/clear":
-            jarvis.clear_history()
+            nova.clear_history()
             print_info("Conversation history cleared.")
             continue
         if lowered == "/provider":
-            jarvis.load_engines()
-            provider = jarvis.provider or "none"
-            model_name = getattr(jarvis, "model_name", "unknown")
-            priority = ",".join(getattr(jarvis, "provider_priority", [])) or "unset"
+            nova.load_engines()
+            provider = nova.provider or "none"
+            model_name = getattr(nova, "model_name", "unknown")
+            priority = ",".join(getattr(nova, "provider_priority", [])) or "unset"
             print_info(f"Provider: {provider} | Model: {model_name} | Priority: {priority}")
             continue
         if lowered == "/speech on":
@@ -606,7 +606,7 @@ async def interactive_cli(jarvis, speech=None):
             continue
 
         try:
-            keep_running = await run_turn(jarvis, normalized, speech)
+            keep_running = await run_turn(nova, normalized, speech)
             if not keep_running:
                 break
         except KeyboardInterrupt:
@@ -633,13 +633,13 @@ async def main():
         os.environ["AI_PROVIDER_PRIORITY"] = args.provider_priority
 
     try:
-        jarvis = JARVISEngine()
+        nova = JARVISEngine()
     except Exception as exc:
         print_error(str(exc))
         return
 
     if args.clear_history:
-        jarvis.clear_history()
+        nova.clear_history()
         cli_history.clear()
         print_info("Conversation and CLI history cleared.")
 
@@ -653,19 +653,19 @@ async def main():
     if args.prompt:
         cli_history.add(args.prompt)
         if args.prompt.strip().lower().startswith("/models"):
-            handle_models_command(args.prompt.strip(), jarvis)
+            handle_models_command(args.prompt.strip(), nova)
             return
         if args.prompt.strip().lower() == "/provider":
-            jarvis.load_engines()
-            provider = jarvis.provider or "none"
-            model_name = getattr(jarvis, "model_name", "unknown")
-            priority = ",".join(getattr(jarvis, "provider_priority", [])) or "unset"
+            nova.load_engines()
+            provider = nova.provider or "none"
+            model_name = getattr(nova, "model_name", "unknown")
+            priority = ",".join(getattr(nova, "provider_priority", [])) or "unset"
             print_info(f"Provider: {provider} | Model: {model_name} | Priority: {priority}")
             return
-        await run_turn(jarvis, args.prompt, speech)
+        await run_turn(nova, args.prompt, speech)
         return
 
-    await interactive_cli(jarvis, speech)
+    await interactive_cli(nova, speech)
 
 
 if __name__ == "__main__":

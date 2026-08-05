@@ -321,7 +321,7 @@ function runCommandPromise(cmd, cwd) {
 
 // Check if update is available
 async function isUpdateAvailable() {
-  const repoPath = path.join(__dirname, '..', 'Github', 'J.A.R.V.I.S.-AI-Assistant');
+  const repoPath = path.join(__dirname, '..', 'Github', 'N.O.V.A.-AI-Assistant');
   if (!fs.existsSync(repoPath)) {
     console.log("[*] GitHub repository not found at:", repoPath);
     return false;
@@ -464,7 +464,7 @@ ipcMain.handle('perform-update', async (event) => {
         const hasSuccessIndicators = allOutput.includes('Already up to date') || 
                                       allOutput.includes('updated successfully') ||
                                       allOutput.includes('Update marked as complete') ||
-                                      allOutput.includes('J.A.R.V.I.S. updated successfully');
+                                      allOutput.includes('N.O.V.A. updated successfully');
         
         const isSuccessful = code === 0 && !updateFailed && (updateCompleted || hasSuccessIndicators);
         
@@ -474,7 +474,7 @@ ipcMain.handle('perform-update', async (event) => {
             if (isUpToDate) {
               win.webContents.send('update-success', 'System is already up to date. No updates needed.');
             } else {
-              win.webContents.send('update-success', 'Update complete! Restarting J.A.R.V.I.S. system...');
+              win.webContents.send('update-success', 'Update complete! Restarting N.O.V.A. system...');
               setTimeout(() => {
                 app.relaunch();
                 app.exit();

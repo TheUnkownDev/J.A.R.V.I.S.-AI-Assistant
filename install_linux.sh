@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "==================================================="
-echo "  J.A.R.V.I.S. AUTOMATED INSTALLATION (LINUX)"
+echo "  N.O.V.A. AUTOMATED INSTALLATION (LINUX)"
 echo "==================================================="
 echo ""
 
@@ -54,7 +54,7 @@ run_with_spinner() {
     printf "\r"
 
     if [ "$status" -ne 0 ]; then
-        saved_log="./jarvis-install-log.log"
+        saved_log="./nova-install-log.log"
         mv "$log_file" "$saved_log"
         echo "[ERROR] $message failed."
         if grep -qiE "Failed to resolve|NameResolutionError|Temporary failure|Could not resolve|unreachable network|Network is unreachable" "$saved_log"; then
@@ -122,7 +122,7 @@ check_python() {
     fi
 
     echo "==================================================="
-    echo "  J.A.R.V.I.S. SYSTEM ALERT"
+    echo "  N.O.V.A. SYSTEM ALERT"
     echo "==================================================="
     echo "[ERROR] Python 3 is not installed or not available on PATH."
     jarvis_error_joke python

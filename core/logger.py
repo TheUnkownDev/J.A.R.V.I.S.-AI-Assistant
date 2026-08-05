@@ -1,7 +1,7 @@
 import sys
 import os
 
-LOG_FILE = "jarvis.log"
+LOG_FILE = "nova.log"
 
 class JARVISLogger:
     def __init__(self):
@@ -28,7 +28,7 @@ def setup_logger():
         if os.path.exists(LOG_FILE):
             os.remove(LOG_FILE)
     except PermissionError:
-        print("[!] Warning: jarvis.log is locked. Appending to existing log.")
+        print("[!] Warning: nova.log is locked. Appending to existing log.")
     
     sys.stdout = JARVISLogger()
     sys.stderr = sys.stdout

@@ -3,7 +3,7 @@ const { ipcRenderer } = require('electron');
 const input = document.getElementById('user-input');
 const chatLog = document.getElementById('chat-log');
 const micBtn = document.getElementById('mic-btn');
-const core = document.getElementById('jarvis-core');
+const core = document.getElementById('nova-core');
 const innerCore = core.querySelector('.inner-core');
 
 const cpuBar = document.getElementById('cpu-bar');
@@ -41,9 +41,9 @@ function addMessage(text, sender, isHTML = false) {
     const div = document.createElement('div');
     div.className = `msg msg-${sender}`;
     if (isHTML) {
-        div.innerHTML = sender === 'jarvis' ? `> ${text}` : `[USER]: ${text}`;
+        div.innerHTML = sender === 'nova' ? `> ${text}` : `[USER]: ${text}`;
     } else {
-        div.innerText = sender === 'jarvis' ? `> ${text}` : `[USER]: ${text}`;
+        div.innerText = sender === 'nova' ? `> ${text}` : `[USER]: ${text}`;
     }
     
     // Smooth scroll animation
@@ -72,7 +72,7 @@ function handleJarvisResponse(data) {
     if (!data) return;
     
     if (data.response) {
-        addMessage(data.response, 'jarvis');
+        addMessage(data.response, 'nova');
     }
     
     // Check for shutdown tool call
@@ -106,7 +106,7 @@ async function sendMessage(msg) {
 
         if (!res.ok) {
             const errorData = await res.json();
-            addMessage(`Sir, my processors are reporting an error: ${errorData.detail || 'Internal Error'}`, 'jarvis');
+            addMessage(`Sir, my processors are reporting an error: ${errorData.detail || 'Internal Error'}`, 'nova');
             setCoreListen(false);
             return;
         }
@@ -116,7 +116,7 @@ async function sendMessage(msg) {
         setCoreListen(false);
         
     } catch (error) {
-        addMessage("I'm having trouble connecting to my core processors, sir. Please ensure the backend is running. <span id='open-keys-err' style='color: #00f6ff; text-decoration: underline; cursor: pointer; font-weight: bold;'>Configure API Keys</span>", 'jarvis', true);
+        addMessage("I'm having trouble connecting to my core processors, sir. Please ensure the backend is running. <span id='open-keys-err' style='color: #00f6ff; text-decoration: underline; cursor: pointer; font-weight: bold;'>Configure API Keys</span>", 'nova', true);
         const errLink = document.getElementById('open-keys-err');
         if (errLink) {
             errLink.addEventListener('click', openSetupOverlay);
@@ -188,7 +188,7 @@ micBtn.addEventListener('click', async () => {
             await sendMessage(data.text);
         }
     } catch (e) {
-        addMessage("Sir, I'm unable to access the microphone array.", 'jarvis');
+        addMessage("Sir, I'm unable to access the microphone array.", 'nova');
     } finally {
         micBtn.style.color = "#00f6ff";
         micBtn.style.transform = 'scale(1)';
@@ -215,7 +215,7 @@ const miniCore = document.getElementById('mini-core');
 let isMini = false;
 
 exitBtn.addEventListener('click', async () => {
-    addMessage("Shutting down all systems, sir.", 'jarvis');
+    addMessage("Shutting down all systems, sir.", 'nova');
     
     // Shutdown animation
     const container = document.getElementById('full-view');
@@ -526,7 +526,7 @@ document.getElementById('save-priority-btn').addEventListener('click', async () 
     try {
         await ipcRenderer.invoke('save-provider-priority', providerPriority);
         closeProviderOverlay();
-        addMessage('AI provider priority updated successfully. Restart JARVIS to apply changes.', 'jarvis');
+        addMessage('AI provider priority updated successfully. Restart JARVIS to apply changes.', 'nova');
     } catch (error) {
         alert('Failed to save provider priority: ' + error.message);
     }
@@ -552,7 +552,7 @@ document.getElementById('local-model-toggle').addEventListener('click', async ()
             toggle.style.color = '#ff4444';
             status.textContent = 'ONLINE';
             status.style.color = '#00ff00';
-            addMessage('Local AI model enabled. Please ensure a model is loaded in settings.', 'jarvis');
+            addMessage('Local AI model enabled. Please ensure a model is loaded in settings.', 'nova');
         } else {
             toggle.textContent = 'ENABLE';
             toggle.style.background = 'rgba(0, 246, 255, 0.1)';
@@ -560,7 +560,7 @@ document.getElementById('local-model-toggle').addEventListener('click', async ()
             toggle.style.color = '#00f6ff';
             status.textContent = 'OFFLINE';
             status.style.color = '#a0d8ef';
-            addMessage('Local AI model disabled. Switching to cloud APIs.', 'jarvis');
+            addMessage('Local AI model disabled. Switching to cloud APIs.', 'nova');
         }
     } catch (error) {
         alert('Failed to toggle local model: ' + error.message);
