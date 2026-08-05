@@ -1,234 +1,197 @@
-# N.O.V.A. | The Holographic AI Assistant By AeteX
+<div align="center">
 
-> [!IMPORTANT]
-> **Original project by AeteX.** Forks and modifications are welcome. Please keep original credit when sharing or modifying this project.
+# 𝗡.𝗢.𝗩.𝗔.
 
-> [!WARNING]
-> **macOS support is untested.** I don't personally own a Mac, so while the macOS install path *should* work, I haven't been able to verify it myself on real hardware. If you're on macOS and want to help — or want to contribute in any other way — see [Contributing](#5-contributing-macos-help-especially-wanted) below. Everyone who helps gets listed as a contributor, Mac or not.
+### 𝗡𝗲𝘂𝗿𝗮𝗹 𝗢𝗽𝗲𝗿𝗮𝘁𝗶𝗼𝗻𝘀 & 𝗩𝗶𝗿𝘁𝘂𝗮𝗹 𝗔𝘀𝘀𝗶𝘀𝘁𝗮𝗻𝘁
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![Electron](https://img.shields.io/badge/platform-Electron-blueviolet.svg)](https://www.electronjs.org/)
+*A cross-platform AI assistant with a futuristic, holographic-inspired interface — cloud-powered or fully offline.*
 
-**Current version:** v0.5
+<p align="center">
+  <a href="https://aetex.is-a.dev/nova">
+    <img src="https://img.shields.io/badge/Documentation-Visit%20Website-00d4ff?style=for-the-badge" alt="Documentation">
+  </a>
+</p>
 
-> **Development warning:** N.O.V.A. v0.5 is still under active development. Expect some rough edges and possible bugs while the systems are being upgraded.
+[![GitHub Stars](https://img.shields.io/github/stars/AeteX/nova?style=flat-square&color=00d4ff)](https://github.com/AeteX/nova/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/AeteX/nova?style=flat-square&color=00d4ff)](https://github.com/AeteX/nova/network/members)
+[![GitHub Issues](https://img.shields.io/github/issues/AeteX/nova?style=flat-square&color=00d4ff)](https://github.com/AeteX/nova/issues)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
+[![Windows](https://img.shields.io/badge/Windows-supported-0078D6?style=flat-square&logo=windows&logoColor=white)](#)
+[![Linux](https://img.shields.io/badge/Linux-supported-FCC624?style=flat-square&logo=linux&logoColor=black)](#)
+[![macOS](https://img.shields.io/badge/macOS-untested-lightgrey?style=flat-square&logo=apple&logoColor=white)](#)
 
-> *"I am Iron Man."*
+</div>
 
-A sophisticated, holographic AI assistant inspired by Iron Man's N.O.V.A. This project combines a high-performance Python backend (powered by Groq or Google Gemini) with a stunning Electron-based glassmorphism HUD.
-
----
-
-## 1. Get Your Free API Key
-
-> *"Give me a few hours. I'll have something better figured out." — Tony Stark*
-
-This project supports cloud and local AI engines. You can use Groq, Gemini, or run completely offline with local models.
-
-### Option A: Groq API
-1. Visit the [Groq Cloud Console](https://console.groq.com/keys).
-2. Create an API Key. This provides lightning-fast responses using Groq's high-speed inference.
-
-### Option B: Google Gemini API
-1. Visit [Google AI Studio](https://aistudio.google.com/app/apikey).
-2. Create a free API Key. This provides a massive context window and is optimized for the free tier.
-
-### Option C: Local Models (llama.cpp) — 100% Offline & Private
-
-> **Recommended for:** Privacy-conscious users, offline usage, and those with capable hardware.
-
-The installer will automatically offer to install llama.cpp during setup. Local models provide:
-
-- **Complete Privacy**: All processing happens on your machine
-- **Offline Capability**: No internet connection required after initial download
-- **Hardware Detection**: Automatically scans your system and recommends the best model
-- **Easy Management**: Download, delete, and switch models directly from the settings menu
-
-**Requirements:**
-- **Recommended**: 16GB+ RAM for good performance
-- **Minimum**: 8GB RAM (may experience slower responses)
-- **GPU**: NVIDIA GPU with CUDA support for best performance (optional)
-
-**During Installation:**
-1. The installer will ask if you want to install llama.cpp
-2. If you accept, it will download the necessary files (~100MB)
-3. You can choose to download a recommended model immediately (e.g., Phi-3-mini, ~1.2GB)
-4. Models are downloaded to the `models/` folder in the project directory
-
-**Managing Models:**
-- Open JARVIS and go to Settings → Local Models
-- View your hardware capabilities and recommended models
-- Download new models directly from Hugging Face
-- Load or delete downloaded models
-- Switch between cloud and local AI anytime
-
-*Note: Local models are enabled by setting `LLAMA_CPP_ENABLED=true` in `.env`. The installer can configure this automatically.*
+> N.O.V.A. is currently in active development. Features, APIs, and configuration may change between releases as the project evolves. Feedback and contributions are welcome.
 
 ---
 
-## 2. Installation & Setup
+## 𝗪𝗵𝘆 𝗡.𝗢.𝗩.𝗔.?
 
-> *"Sometimes you gotta run before you can walk." — Tony Stark*
-
-We offer two installation paths depending on your technical comfort level.
-
-### Path A: Regular Users (Installer / Portable)
-
-> **Under Maintenance** — The pre-built `.exe` installer and `.zip` portable are currently being fixed and will be available again in a future update. In the meantime, please use the script installation below — it is easier than it sounds and takes less than 5 minutes!
+N.O.V.A. combines cloud AI providers like Gemini and Groq with fully offline local models powered by llama.cpp, giving you the flexibility to choose between maximum performance and complete privacy — all through a unified desktop interface.
 
 ---
 
-### Path B: Power Users / Developers
+## 𝗤𝘂𝗶𝗰𝗸 𝗦𝘁𝗮𝗿𝘁
 
-> *"Let's face it, this is not the worst thing you've caught me doing." — Tony Stark*
+```bash
+git clone https://github.com/AeteX/nova.git
+cd nova
+```
 
-If you want to edit the code, tweak the UI, or run the system natively across Windows, macOS, or Linux, follow the source-code installation below:
+Then run the installer for your platform:
 
-<details>
-<summary><b>Windows Setup (Click to expand)</b></summary>
+```bash
+# Windows
+install_windows.bat
 
-1. **Option A: Clone with Git** (Recommended):
-   ```powershell
-   git clone https://github.com/aetex/N.O.V.A.-AI-Assistant.git
-   cd N.O.V.A.-AI-Assistant
-   ```
-   **Option B: Download ZIP**:
-   - Click the green **"Code"** button at the top of this page.
-   - Select **"Download ZIP"**.
-   - Extract the folder and open it.
-2. **Run the Installer**:
-   - Double-click the `install_windows.bat` file.
-   - Wait for it to say "INSTALLATION COMPLETE!"
-3. **Run & Configure**:
-   - Double-click `launch_jarvis.bat`.
-   - Once the HUD opens, configure your API keys (Groq or Gemini) directly from the settings menu.
-</details>
+# Linux
+./install_linux.sh
 
-<details>
-<summary><b>macOS Setup (Click to expand)</b></summary>
+# macOS
+./install_mac.sh
+```
 
-> ⚠️ **Untested on macOS.** These steps are written to the best of my knowledge, but I don't own a Mac to confirm them myself. If something breaks, please [open an issue](https://github.com/aetex/N.O.V.A.-AI-Assistant/issues) — or better yet, help fix it (or contribute in any other way)! See [Contributing](#5-contributing-macos-help-especially-wanted).
-
-1. **Option A: Clone with Git** (Recommended):
-   ```bash
-   git clone https://github.com/aetex/N.O.V.A.-AI-Assistant.git
-   cd N.O.V.A.-AI-Assistant
-   ```
-   **Option B: Download ZIP**:
-   - Click the green **"Code"** button at the top of this page.
-   - Select **"Download ZIP"**.
-   - Extract the folder and open it in your terminal.
-2. **Run the Installer**:
-   ```bash
-   sh install_mac.sh
-   ```
-3. **Run & Configure**:
-   ```bash
-   sh launch_jarvis.sh
-   ```
-   - Once the HUD opens, configure your API keys (Groq or Gemini) directly from the settings menu.
-</details>
-
-<details>
-<summary><b>Linux Setup (Click to expand)</b></summary>
-
-1. **Clone the Repo**:
-   ```bash
-   git clone https://github.com/aetex/N.O.V.A.-AI-Assistant.git
-   cd N.O.V.A.-AI-Assistant
-   ```
-2. **Run the Installer**:
-   ```bash
-   sh install_linux.sh
-   ```
-3. **Run & Configure**:
-   ```bash
-   sh launch_jarvis.sh
-   ```
-   - Once the HUD opens, configure your API keys (Groq or Gemini) directly from the settings menu.
-</details>
+> Full installation instructions, dependencies, and additional platform notes live on the **[official website](https://aetex.is-a.dev/nova)**.
 
 ---
 
-## 3. How to Use
+## 𝗙𝗲𝗮𝘁𝘂𝗿𝗲𝘀
 
-> *"JARVIS, it's time for a little upgrades." — Tony Stark*
+| | |
+|---|---|
+| **Google Gemini** | Cloud inference via Google's Gemini models |
+| **Groq** | Ultra-fast inference through Groq's LPU-backed API |
+| **llama.cpp** | Local model inference, no internet required |
+| **Local AI** | Fully offline operation for privacy-first usage |
+| **Desktop GUI** | Native cross-platform desktop application |
+| **CLI** | Full-featured command line interface |
+| **Automatic Updates** | Stay current without manual reinstalls |
+| **Wake Word** | Hands-free activation |
+| **Optional TTS** | Text-to-speech output |
+| **Optional STT** | Speech-to-text input |
+| **Plugin Support** | *(coming soon)* Extend N.O.V.A. with custom modules |
+| **Emergency Protocol** | *(coming soon)* Priority-response safety mode |
+| **Cross Platform** | Windows, Linux, and macOS *(untested)* |
 
-- **Activation**: Say "Jarvis" followed by your command.
-- **Modes**: Use the **[MINI]** button for a compact hologram or **[EXIT]** to shut down.
-- **Debugging**: Say "Jarvis, enter debugging mode" to see live system logs.
-- **Interruption**: Click the central JARVIS core at any time to silence him or stop a long response.
+### High-Level Architecture
 
----
-
-## 4. Troubleshooting
-
-> *"I'm going to need a little time to work on that." — Tony Stark*
-
-- **Microphone not detected**: Ensure your default input device is set correctly in OS settings.
-- **Backend Error**: Verify that you have configured your API keys inside the HUD's settings panel.
-- **UI not loading**: Ensure you ran `npm install` inside the `ui` folder.
-- **Local model performance**: For better performance with local models, ensure you have sufficient RAM (16GB+ recommended) and consider using a system with GPU acceleration.
-- **macOS-specific issues**: Since macOS is untested on my end, please report any bugs via [GitHub Issues](https://github.com/aetex/N.O.V.A.-AI-Assistant/issues) — see the section below if you'd like to help fix them.
-
----
-
-## 5. Contributing (macOS Help Especially Wanted)
-
-> *"Sometimes the best solutions are the simplest ones." — Tony Stark*
-
-I built and tested JARVIS entirely on Windows and Linux. **I don't own a Mac**, so the macOS install path (`install_mac.sh` / `launch_jarvis.sh`) is untested on real hardware — it's written based on how it *should* behave, but there's a good chance a few macOS-specific bugs (permissions, mic access, Electron packaging quirks, Apple Silicon vs Intel differences, etc.) are hiding in there. That's the biggest gap right now, so Mac testers/fixers are especially appreciated.
-
-**But this isn't only about macOS.** Whether or not you have a Mac, there are plenty of ways to pitch in:
-
-- 🍎 **Test or fix macOS.** Run the install script and report what breaks, or fix a Mac-specific bug — the highest-priority gap right now.
-- 🐛 **Fix a bug on any platform.** Windows and Linux bugs, edge cases, crashes — all welcome.
-- ✨ **Add a feature.** New wake-word tweaks, UI polish, a local model you got working well — if it's useful, it's welcome.
-- 📝 **Improve the docs.** Clearer install steps, typo fixes, better troubleshooting entries — small stuff still counts.
-- 🎨 **Design/UI contributions.** Tweaks to the HUD, new themes, accessibility improvements.
-- 🔊 **Mic/audio work.** Especially valuable on macOS, where audio permissions work differently than Windows/Linux.
-- 📦 **Packaging/build help.** Getting installers signed, notarized, or just more reliable across platforms.
-
-Really — if you fix, test, document, or improve *anything* in this repo, you're a contributor.
-
-**What you get in return:**
-
-This is a free, MIT-licensed passion project, so I can't pay contributors — but I *can* give you real, permanent credit:
-
-- ✅ Your name/handle added to the **Contributors** table below, no matter how big or small the contribution
-- ✅ macOS contributors specifically get called out as **macOS maintainer**, both here and inside the app's in-HUD "About" credits
-- ✅ Your fix, your name, forever in the commit history and changelog of an active open-source project
-
-If that sounds fun, fork the repo, open a PR (macOS fixes, other bugs, docs, features — anything genuinely helpful), and tag me — I'll review, merge, and add you below.
-
-### Contributors
-
-| Contributor | Contribution | Platform |
-|---|---|---|
-| — | *waiting for our first contributor* | — |
+```
+N.O.V.A.
+├── Desktop GUI
+├── CLI
+├── AI Providers
+│   ├── Gemini
+│   ├── Groq
+│   └── llama.cpp
+├── Voice (Wake Word / STT / TTS)
+└── Updater
+```
 
 ---
 
-## 6. Changelog
+## 𝗗𝗲𝗺𝗼
 
-### v0.5 — Latest (2026-06-30)
-**🚀 Major Update: Local Model Support**
-- Replaced LM Studio with llama.cpp for more efficient, portable local model support
-- Added hardware detection to automatically scan system capabilities and recommend optimal models
-- Implemented model management UI to download, delete, and switch models directly from settings
-- Added Hugging Face integration for browsing and downloading models with one click
-- Smart model recommendations based on RAM and GPU configuration
-- Fully portable installation — everything stays in the project folder
-- Low-end PC support with lightweight models for systems with 8GB RAM
-- Complete offline capability with local models
+<p align="center">
+  <img src="docs/demo.gif" width="850" alt="N.O.V.A. demo">
+</p>
 
-### v0.4 — Previous
-- Added Google Gemini API support with massive context window
-- Implemented automatic update system
-- Added voice activity detection for wake word
-- Improved error handling and fail-safe mechanisms
+More screenshots and an interactive UI showcase are on the [official website →](https://aetex.is-a.dev/nova)
+
+The showcase lets you explore the interface directly in your browser — no installation required. Note that it's a visual demonstration only and does not run or connect to the actual AI assistant.
 
 ---
 
-*Inspired by the MCU. Developed for the future.*
+## 𝗗𝗼𝗰𝘂𝗺𝗲𝗻𝘁𝗮𝘁𝗶𝗼𝗻
+
+Full documentation, setup guides, FAQs, and troubleshooting are available on the official website.
+
+<p align="center">
+  <a href="https://aetex.is-a.dev/nova">
+    <img src="https://img.shields.io/badge/Documentation-Visit%20Website-00d4ff?style=for-the-badge" alt="Documentation">
+  </a>
+</p>
+
+---
+
+## 𝗟𝗼𝗰𝗮𝗹 𝗔𝗜
+
+N.O.V.A. can run entirely offline using [llama.cpp](https://github.com/ggerganov/llama.cpp) for local model inference — no cloud, no API keys, no data leaving your machine.
+
+Setup instructions for local models are available on the [official website](https://aetex.is-a.dev/nova).
+
+---
+
+## 𝗥𝗼𝗮𝗱𝗺𝗮𝗽
+
+**Completed**
+- [x] Splash Screen
+
+**In Progress**
+- [ ] Complete project rebranding (internal modules/executable → N.O.V.A.)
+- [ ] Multi Personality
+- [ ] Graphical NSIS Installer
+- [ ] Wake Word Improvements
+- [ ] Simpler Updater
+- [ ] CLI Voice Support
+- [ ] Plugin System
+- [ ] Emergency Protocol
+- [ ] Website Redesign
+- [ ] Automated Testing
+- [ ] Linux Compatibility Testing
+
+**Future**
+- [ ] Android Version
+- [ ] Browser Extension
+- [ ] More Plugins
+
+---
+
+## 𝗖𝗼𝗻𝘁𝗿𝗶𝗯𝘂𝘁𝗶𝗻𝗴
+
+Contributions are what make open-source great — all forms are welcome:
+
+- Bug Reports
+- Pull Requests
+- Documentation
+- UI Improvements
+- Plugin Ideas
+- Feature Requests
+
+Check the [issues page](https://github.com/AeteX/nova/issues) to get started.
+
+### Bug Reports
+
+When filing an issue, please include:
+
+- **OS** (and version)
+- **N.O.V.A. version**
+- **Logs** (if available)
+- **Steps to reproduce**
+
+---
+
+## 𝗖𝗿𝗲𝗱𝗶𝘁𝘀
+
+N.O.V.A. is designed and developed by **AeteX**.
+
+Built with the support of the open-source community and the projects that make local and cloud AI accessible to everyone.
+
+---
+
+## 𝗟𝗶𝗰𝗲𝗻𝘀𝗲
+
+Released under the **MIT License**. See [LICENSE](LICENSE) for details.
+
+---
+
+## 𝗗𝗶𝘀𝗰𝗹𝗮𝗶𝗺𝗲𝗿
+
+N.O.V.A. is an independent open-source project created by **AeteX**. It is inspired by futuristic science-fiction interfaces, but it is **not affiliated with, endorsed by, or associated with Marvel, Disney, DC, Warner Bros., or any of their intellectual property.**
+
+<div align="center">
+
+<sub>Made by AeteX</sub>
+
+</div>
