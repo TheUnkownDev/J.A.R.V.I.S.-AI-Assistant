@@ -1,4 +1,4 @@
-# J.A.R.V.I.S. | The Holographic AI Assistant By AeteX
+# N.O.V.A. | The Holographic AI Assistant By AeteX
 
 > [!IMPORTANT]
 > **Original project by AeteX.** Forks and modifications are welcome. Please keep original credit when sharing or modifying this project.
@@ -12,11 +12,11 @@
 
 **Current version:** v0.5
 
-> **Development warning:** JARVIS v0.5 is still under active development. Expect some rough edges and possible bugs while the systems are being upgraded.
+> **Development warning:** N.O.V.A. v0.5 is still under active development. Expect some rough edges and possible bugs while the systems are being upgraded.
 
 > *"I am Iron Man."*
 
-A sophisticated, holographic AI assistant inspired by Iron Man's J.A.R.V.I.S. This project combines a high-performance Python backend (powered by Groq or Google Gemini) with a stunning Electron-based glassmorphism HUD.
+A sophisticated, holographic AI assistant inspired by Iron Man's N.O.V.A. This project combines a high-performance Python backend (powered by Groq or Google Gemini) with a stunning Electron-based glassmorphism HUD.
 
 ---
 
@@ -90,8 +90,8 @@ If you want to edit the code, tweak the UI, or run the system natively across Wi
 
 1. **Option A: Clone with Git** (Recommended):
    ```powershell
-   git clone https://github.com/aetex/J.A.R.V.I.S.-AI-Assistant.git
-   cd J.A.R.V.I.S.-AI-Assistant
+   git clone https://github.com/aetex/N.O.V.A.-AI-Assistant.git
+   cd N.O.V.A.-AI-Assistant
    ```
    **Option B: Download ZIP**:
    - Click the green **"Code"** button at the top of this page.
@@ -108,12 +108,12 @@ If you want to edit the code, tweak the UI, or run the system natively across Wi
 <details>
 <summary><b>macOS Setup (Click to expand)</b></summary>
 
-> ⚠️ **Untested on macOS.** These steps are written to the best of my knowledge, but I don't own a Mac to confirm them myself. If something breaks, please [open an issue](https://github.com/aetex/J.A.R.V.I.S.-AI-Assistant/issues) — or better yet, help fix it (or contribute in any other way)! See [Contributing](#5-contributing-macos-help-especially-wanted).
+> ⚠️ **Untested on macOS.** These steps are written to the best of my knowledge, but I don't own a Mac to confirm them myself. If something breaks, please [open an issue](https://github.com/aetex/N.O.V.A.-AI-Assistant/issues) — or better yet, help fix it (or contribute in any other way)! See [Contributing](#5-contributing-macos-help-especially-wanted).
 
 1. **Option A: Clone with Git** (Recommended):
    ```bash
-   git clone https://github.com/aetex/J.A.R.V.I.S.-AI-Assistant.git
-   cd J.A.R.V.I.S.-AI-Assistant
+   git clone https://github.com/aetex/N.O.V.A.-AI-Assistant.git
+   cd N.O.V.A.-AI-Assistant
    ```
    **Option B: Download ZIP**:
    - Click the green **"Code"** button at the top of this page.
@@ -135,8 +135,8 @@ If you want to edit the code, tweak the UI, or run the system natively across Wi
 
 1. **Clone the Repo**:
    ```bash
-   git clone https://github.com/aetex/J.A.R.V.I.S.-AI-Assistant.git
-   cd J.A.R.V.I.S.-AI-Assistant
+   git clone https://github.com/aetex/N.O.V.A.-AI-Assistant.git
+   cd N.O.V.A.-AI-Assistant
    ```
 2. **Run the Installer**:
    ```bash
@@ -170,7 +170,7 @@ If you want to edit the code, tweak the UI, or run the system natively across Wi
 - **Backend Error**: Verify that you have configured your API keys inside the HUD's settings panel.
 - **UI not loading**: Ensure you ran `npm install` inside the `ui` folder.
 - **Local model performance**: For better performance with local models, ensure you have sufficient RAM (16GB+ recommended) and consider using a system with GPU acceleration.
-- **macOS-specific issues**: Since macOS is untested on my end, please report any bugs via [GitHub Issues](https://github.com/aetex/J.A.R.V.I.S.-AI-Assistant/issues) — see the section below if you'd like to help fix them.
+- **macOS-specific issues**: Since macOS is untested on my end, please report any bugs via [GitHub Issues](https://github.com/aetex/N.O.V.A.-AI-Assistant/issues) — see the section below if you'd like to help fix them.
 
 ---
 
