@@ -16,7 +16,7 @@ class RollbackManager:
         Initialize RollbackManager.
         
         Args:
-            base_dir: Base directory of JARVIS installation
+            base_dir: Base directory of NOVA installation
             backup_manager: BackupManager instance for backup operations
         """
         self.base_dir = base_dir

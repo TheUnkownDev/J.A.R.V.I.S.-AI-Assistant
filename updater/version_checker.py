@@ -55,7 +55,7 @@ class VersionChecker:
             api_url = "https://api.github.com/repos/Aetex/N.O.V.A.-AI-Assistant/contents/ui/package.json"
             
             request = urllib.request.Request(api_url)
-            request.add_header('User-Agent', 'JARVIS-Updater')
+            request.add_header('User-Agent', 'NOVA-Updater')
             
             with urllib.request.urlopen(request, timeout=30) as response:
                 if response.status == 200:

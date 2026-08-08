@@ -25,7 +25,7 @@ def launch():
         # Run npm start. Using shell=True for npm on Windows
         subprocess.run("npm start", shell=True, cwd=ui_dir)
     except KeyboardInterrupt:
-        print("\n[*] Shutting down JARVIS...")
+        print("\n[*] Shutting down NOVA...")
     finally:
         # Cleanup backend if GUI is closed
         backend_proc.terminate()

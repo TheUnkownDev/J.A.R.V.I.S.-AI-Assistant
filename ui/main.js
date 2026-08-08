@@ -5,7 +5,7 @@ const Store = require('electron-store');
 const fs = require('fs');
 
 // Set app name
-app.name = 'JARVIS';
+app.name = 'NOVA';
 
 // Set base directory
 const baseDir = path.join(__dirname, '..');
@@ -144,7 +144,7 @@ function createWindow() {
     transparent: true,
     alwaysOnTop: false,
     skipTaskbar: false, // Show in taskbar
-    title: 'JARVIS', // Set window title
+    title: 'NOVA', // Set window title
     show: false, // Keep hidden until splash hands off
     webPreferences: {
       nodeIntegration: true,
@@ -185,8 +185,8 @@ function createTray() {
     tray = new Tray(iconPath);
     
     const contextMenu = Menu.buildFromTemplate([
-      { label: 'Show JARVIS', click: () => win.show() },
-      { label: 'Hide JARVIS', click: () => win.hide() },
+      { label: 'Show NOVA', click: () => win.show() },
+      { label: 'Hide NOVA', click: () => win.hide() },
       { type: 'separator' },
       { label: 'Exit', click: () => {
         app.isQuitting = true;
@@ -194,7 +194,7 @@ function createTray() {
       }}
     ]);
 
-    tray.setToolTip('JARVIS AI Assistant');
+    tray.setToolTip('NOVA AI Assistant');
     tray.setContextMenu(contextMenu);
 
     tray.on('click', () => {

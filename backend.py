@@ -1,10 +1,10 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
-from core.llm_client import JARVISEngine
+from core.llm_client import NOVAEngine
 from core.runtime import execute_tool, process_response
-from core.speech import JARVISSpeech
-from core.stt import JARVISSTT
+from core.speech import NOVASpeech
+from core.stt import NOVASTT
 from core.wakeword import WakeWordDetector
 from core.logger import setup_logger
 from skills.volume_control import get_volume, set_volume
@@ -40,10 +40,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Initialize JARVIS
-nova = JARVISEngine()
-speech = JARVISSpeech()
-stt = JARVISSTT()
+# Initialize NOVA
+nova = NOVAEngine()
+speech = NOVASpeech()
+stt = NOVASTT()
 detector = WakeWordDetector()
 
 def run_wakeword_listener():
@@ -80,7 +80,7 @@ async def process_voice_command():
         # 1. Notify UI we heard the wake word
         await push_event("wakeword", {"status": "detected"})
         
-        # 2. Stop JARVIS if he's talking
+        # 2. Stop NOVA if he's talking
         speech.stop()
         
         # 3. Start full transcription
@@ -93,7 +93,7 @@ async def process_voice_command():
             
             # 4. Process with LLM
             response_data = await chat(ChatRequest(message=text))
-            await push_event("jarvis_response", response_data)
+            await push_event("nova_response", response_data)
             
     finally:
         is_listening = False
@@ -106,13 +106,13 @@ class ChatResponse(BaseModel):
     tools_executed: list
 
 @app.post("/stop")
-async def stop_jarvis():
-    """Stops JARVIS from talking."""
+async def stop_nova():
+    """Stops NOVA from talking."""
     stopped = speech.stop()
     return {"stopped": stopped}
 
 @app.get("/listen")
-async def listen_jarvis():
+async def listen_nova():
     """Triggers the microphone and transcribes user speech."""
     text = stt.listen_and_transcribe()
     return {"text": text}
@@ -139,7 +139,7 @@ async def get_status():
 
 @app.post("/reload-engine")
 async def reload_engine():
-    """Reloads the JARVIS engine configuration without restarting."""
+    """Reloads the NOVA engine configuration without restarting."""
     try:
         nova.load_engines()
         return {"success": True, "message": "Engine reloaded successfully"}

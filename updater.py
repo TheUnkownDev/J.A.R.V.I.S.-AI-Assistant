@@ -23,7 +23,7 @@ from updater.dependency_manager import DependencyManager
 from updater.update_manifest import UpdateManifest
 
 
-class JARVISUpdater:
+class NOVAUpdater:
     """Main updater class for N.O.V.A."""
     
     def __init__(self):
@@ -49,7 +49,7 @@ class JARVISUpdater:
             "memory.json",
             "memory_*.json",  # Protect any memory backup files
             "nova.log",
-            "jarvis_*.log",  # Protect any log files
+            "nova_*.log",  # Protect any log files
             "Github",
             "__pycache__",
             "backup",  # Protect backup directory
@@ -271,7 +271,7 @@ class JARVISUpdater:
         
         Args:
             force: Force update even if already up to date
-            auto_restart: Automatically restart JARVIS after successful update
+            auto_restart: Automatically restart NOVA after successful update
             
         Returns:
             Tuple of (success, message)
@@ -340,7 +340,7 @@ class JARVISUpdater:
         # Auto-restart if requested
         if auto_restart:
             print("[*] Restarting N.O.V.A....")
-            restart_success, restart_message = self.restart_jarvis()
+            restart_success, restart_message = self.restart_nova()
             if restart_success:
                 success_message += " N.O.V.A. is restarting..."
             else:
@@ -348,7 +348,7 @@ class JARVISUpdater:
         
         return True, success_message
     
-    def restart_jarvis(self) -> Tuple[bool, str]:
+    def restart_nova(self) -> Tuple[bool, str]:
         """
         Restart N.O.V.A. after successful update.
         
@@ -356,17 +356,17 @@ class JARVISUpdater:
             Tuple of (success, message)
         """
         try:
-            # Check if JARVIS is running and terminate it
-            self.terminate_jarvis()
+            # Check if NOVA is running and terminate it
+            self.terminate_nova()
             
-            # Start JARVIS
-            launch_script = os.path.join(self.base_dir, "launch_jarvis.py")
+            # Start NOVA
+            launch_script = os.path.join(self.base_dir, "launch_nova.py")
             if os.path.exists(launch_script):
                 subprocess.Popen([sys.executable, launch_script], cwd=self.base_dir)
                 return True, "N.O.V.A. restarted"
             
             # Try batch file on Windows
-            launch_bat = os.path.join(self.base_dir, "launch_jarvis.bat")
+            launch_bat = os.path.join(self.base_dir, "launch_nova.bat")
             if os.path.exists(launch_bat):
                 subprocess.Popen([launch_bat], cwd=self.base_dir, shell=True)
                 return True, "N.O.V.A. restarted"
@@ -378,7 +378,7 @@ class JARVISUpdater:
             print(f"[ERROR] {error_msg}")
             return False, error_msg
     
-    def terminate_jarvis(self) -> Tuple[bool, str]:
+    def terminate_nova(self) -> Tuple[bool, str]:
         """
         Terminate running N.O.V.A. processes.
         
@@ -389,7 +389,7 @@ class JARVISUpdater:
             # Kill Python processes running backend.py or main.py
             if os.name == 'nt':  # Windows
                 subprocess.run(
-                    ["taskkill", "/F", "/IM", "python.exe", "/FI", "WINDOWTITLE eq JARVIS*"],
+                    ["taskkill", "/F", "/IM", "python.exe", "/FI", "WINDOWTITLE eq NOVA*"],
                     capture_output=True
                 )
             else:  # Unix-like
@@ -441,12 +441,12 @@ def update(force: bool = False, auto_restart: bool = False) -> Tuple[bool, str]:
     
     Args:
         force: Force update even if already up to date
-        auto_restart: Automatically restart JARVIS after successful update
+        auto_restart: Automatically restart NOVA after successful update
         
     Returns:
         Tuple of (success, message)
     """
-    updater = JARVISUpdater()
+    updater = NOVAUpdater()
     return updater.perform_update(force=force, auto_restart=auto_restart)
 
 
@@ -455,13 +455,13 @@ if __name__ == "__main__":
     
     parser = argparse.ArgumentParser(description="N.O.V.A. Updater")
     parser.add_argument("--force", action="store_true", help="Force update even if already up to date")
-    parser.add_argument("--auto-restart", action="store_true", help="Automatically restart JARVIS after update")
+    parser.add_argument("--auto-restart", action="store_true", help="Automatically restart NOVA after update")
     parser.add_argument("--rollback", action="store_true", help="Rollback to previous version")
     parser.add_argument("--status", action="store_true", help="Show update status")
     
     args = parser.parse_args()
     
-    updater = JARVISUpdater()
+    updater = NOVAUpdater()
     
     if args.status:
         status = updater.get_update_status()

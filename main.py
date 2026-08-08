@@ -4,7 +4,7 @@ import os
 import shlex
 import sys
 
-from core.llm_client import JARVISEngine
+from core.llm_client import NOVAEngine
 from core.llama_manager import LlamaManager
 from core.runtime import process_response
 
@@ -41,7 +41,7 @@ class CLITheme:
     reset = Style.RESET_ALL
 
 
-HISTORY_FILE = os.path.join(os.path.expanduser("~"), ".jarvis_cli_history")
+HISTORY_FILE = os.path.join(os.path.expanduser("~"), ".nova_cli_history")
 HISTORY_LIMIT = 250
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 ENV_FILE = os.path.join(PROJECT_ROOT, ".env")
@@ -85,7 +85,7 @@ def print_tool(message):
 
 
 def print_assistant(message):
-    print(style(CLITheme.assistant, f"JARVIS: {message}"))
+    print(style(CLITheme.assistant, f"NOVA: {message}"))
 
 
 def build_prompt():
@@ -499,9 +499,9 @@ def handle_models_command(raw_input, nova):
 
 
 def init_speech():
-    from core.speech import JARVISSpeech
+    from core.speech import NOVASpeech
 
-    return JARVISSpeech()
+    return NOVASpeech()
 
 
 async def maybe_speak(speech, text):
@@ -633,7 +633,7 @@ async def main():
         os.environ["AI_PROVIDER_PRIORITY"] = args.provider_priority
 
     try:
-        nova = JARVISEngine()
+        nova = NOVAEngine()
     except Exception as exc:
         print_error(str(exc))
         return

@@ -19,7 +19,7 @@
   },
   "build": {
     "appId": "com.starkindustries.nova",
-    "productName": "JARVIS",
+    "productName": "NOVA",
     "directories": {
       "output": "dist"
     },

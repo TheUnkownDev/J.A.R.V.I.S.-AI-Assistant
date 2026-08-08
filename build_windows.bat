@@ -1,5 +1,5 @@
 @echo off
-title JARVIS Windows Compiler
+title NOVA Windows Compiler
 echo ===================================================
 echo   COMPILING N.O.V.A. EXECUTABLE (WINDOWS)
 echo ===================================================
@@ -71,8 +71,8 @@ echo IMPORTANT: Your final installer and portable ZIP are NOT in the 'dist' fold
 echo They have been created inside the UI's output folder!
 echo.
 echo Please look here for your final files:
-echo --^> JARVIS\ui\dist\
+echo --^> NOVA\ui\dist\
 echo.
-echo Inside, you will find 'JARVIS Setup.exe' and the portable '.zip'.
+echo Inside, you will find 'NOVA Setup.exe' and the portable '.zip'.
 echo ===================================================
 pause

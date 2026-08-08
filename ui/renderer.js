@@ -68,7 +68,7 @@ async function stopSpeech() {
     } catch (e) { console.error("Failed to stop speech"); }
 }
 
-function handleJarvisResponse(data) {
+function handleNovaResponse(data) {
     if (!data) return;
     
     if (data.response) {
@@ -112,7 +112,7 @@ async function sendMessage(msg) {
         }
 
         const data = await res.json();
-        handleJarvisResponse(data);
+        handleNovaResponse(data);
         setCoreListen(false);
         
     } catch (error) {
@@ -282,10 +282,10 @@ eventSource.addEventListener('user_speech', (e) => {
     setCoreListen(true);
 });
 
-eventSource.addEventListener('jarvis_response', (e) => {
+eventSource.addEventListener('nova_response', (e) => {
     const data = JSON.parse(e.data);
     setCoreListen(true);
-    handleJarvisResponse(data);
+    handleNovaResponse(data);
     setCoreListen(false);
 });
 
@@ -526,7 +526,7 @@ document.getElementById('save-priority-btn').addEventListener('click', async () 
     try {
         await ipcRenderer.invoke('save-provider-priority', providerPriority);
         closeProviderOverlay();
-        addMessage('AI provider priority updated successfully. Restart JARVIS to apply changes.', 'nova');
+        addMessage('AI provider priority updated successfully. Restart NOVA to apply changes.', 'nova');
     } catch (error) {
         alert('Failed to save provider priority: ' + error.message);
     }

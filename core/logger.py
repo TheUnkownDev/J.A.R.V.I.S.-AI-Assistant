@@ -3,7 +3,7 @@ import os
 
 LOG_FILE = "nova.log"
 
-class JARVISLogger:
+class NOVALogger:
     def __init__(self):
         self.terminal = sys.stdout
         self.log = open(LOG_FILE, "a", encoding="utf-8")
@@ -30,6 +30,6 @@ def setup_logger():
     except PermissionError:
         print("[!] Warning: nova.log is locked. Appending to existing log.")
     
-    sys.stdout = JARVISLogger()
+    sys.stdout = NOVALogger()
     sys.stderr = sys.stdout
     print("[*] Logging system initialized.")

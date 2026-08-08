@@ -6,7 +6,7 @@ echo ===================================================
 
 :: Start the Python Backend in a VISIBLE window
 echo [*] Powering up neural processors (Visible Mode)...
-start "JARVIS Backend" cmd /k ".\venv\Scripts\activate && python backend.py"
+start "NOVA Backend" cmd /k ".\venv\Scripts\activate && python backend.py"
 
 :: Wait for the backend to initialize
 echo [*] Waiting for system handshake...
