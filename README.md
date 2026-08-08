@@ -158,6 +158,7 @@ Contributions are what make open-source great — all forms are welcome:
 - UI Improvements
 - Plugin Ideas
 - Feature Requests
+- Money Donation
 
 Check the [issues page](https://github.com/AeteX/nova/issues) to get started.
 
