@@ -4,7 +4,7 @@
 
 ### 𝗡𝗲𝘂𝗿𝗮𝗹 𝗢𝗽𝗲𝗿𝗮𝘁𝗶𝗼𝗻𝘀 & 𝗩𝗶𝗿𝘁𝘂𝗮𝗹 𝗔𝘀𝘀𝗶𝘀𝘁𝗮𝗻𝘁
 
-*A cross-platform AI assistant with a futuristic, holographic-inspired interface — cloud-powered or fully offline.*
+*A cross-platform AI assistant with a futuristic, holographic-inspired interface — cloud-powered or fully offline by AeteX.*
 
 <p align="center">
   <a href="https://aetex.is-a.dev/nova">
