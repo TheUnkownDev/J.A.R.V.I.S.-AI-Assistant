@@ -28,7 +28,7 @@ class NOVAUpdater:
     
     def __init__(self):
         self.base_dir = os.path.dirname(os.path.abspath(__file__))
-        self.github_repo_url = "https://github.com/Aetex/N.O.V.A.-AI-Assistant.git"
+        self.github_repo_url = "https://github.com/Aetex/nova.git"
         self.repo_dir = os.path.join(self.base_dir, "Github", "N.O.V.A.-AI-Assistant")
         
         # Initialize modules

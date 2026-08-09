@@ -17,7 +17,7 @@ class VersionChecker:
     def __init__(self, base_dir: str, repo_dir: str):
         self.base_dir = base_dir
         self.repo_dir = repo_dir
-        self.github_repo_url = "https://github.com/Aetex/N.O.V.A.-AI-Assistant.git"
+        self.github_repo_url = "https://github.com/Aetex/nova.git"
         self.package_json_path = os.path.join(base_dir, "ui", "package.json")
         self.repo_package_json_path = os.path.join(repo_dir, "ui", "package.json")
     
