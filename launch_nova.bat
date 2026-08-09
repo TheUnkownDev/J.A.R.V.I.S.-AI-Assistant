@@ -8,13 +8,7 @@ echo ===================================================
 set "BASE_DIR=%~dp0"
 cd /d "%BASE_DIR%"
 
-where cargo > nul 2>&1
-if errorlevel 1 (
-    echo [ERROR] Rust/Cargo is required to launch the Tauri HUD from source.
-    echo         Install it from https://rustup.rs/ and re-run this launcher.
-    pause
-    exit /b 1
-)
+
 
 :: Start the Python Backend silently using relative venv path
 echo [*] Powering up neural processors (Silent Mode)...

@@ -5,11 +5,7 @@ echo "==================================================="
 
 cd "$(dirname "$0")"
 
-if ! command -v cargo >/dev/null 2>&1; then
-    echo "[ERROR] Rust/Cargo is required to launch the Tauri HUD from source."
-    echo "        Install it from https://rustup.rs/ and re-run this launcher."
-    exit 1
-fi
+
 
 # Start the Python Backend in the background (silent)
 echo "[*] Powering up neural processors..."
